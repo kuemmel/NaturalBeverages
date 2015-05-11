@@ -1,8 +1,8 @@
 ##
-# This is a small project for a lectore on databases.
-#
-# Text partially in German
+# This is a small project for a lecture on databases.
 ##
+
+Text partially in German
 
 About:
 	- A fictitious WebShop and delivery service for "natural" beverages: Beer, Juice, Tea, Coffee, Whine, Mead
@@ -26,11 +26,11 @@ dev requirements:
 	- "dev diary" pdf (latex), classes, database design, (this document) inclusive
 
 Design:
-	Colors:
-		- green/brown "nature"
-		- light colors "freedom, air" (pastel?)
-	Database:
-		- Users (Email!, Nick, Name, Surname, Date of Birth, Address, Date of sign up)
-		- Beverages (Name!, Firm!, Amount left, Price per unit, Amount per unit(L), Crate, Category)
-		- Crates (Category!, Amount per Crate!, Refund!)
-		- Orders (Email!, List Of Beverages!, Date!)
+	Colors: <br />
+		- green/brown "nature" <br />
+		- light colors "freedom, air" (pastel?) <br />
+	Database: <br />
+		- Users (Email!, Nick, Name, Surname, Date of Birth, Address, Date of sign up) <br />
+		- Beverages (Name!, Firm!, Amount left, Price per unit, Amount per unit(L), Crate, Category) <br />
+		- Crates (Category!, Amount per Crate!, Refund!) <br />
+		- Orders (Email!, List Of Beverages!, Date!) <br />
