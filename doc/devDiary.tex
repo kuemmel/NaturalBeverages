@@ -1,0 +1,94 @@
+%pdflatex -synctex=1 -interaction=nonstopmode gemaDOc.tex
+
+\documentclass[a4paper, 11pt]{article}
+\usepackage{setspace}
+\setstretch{1.5}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+%Eurozeichen: €
+\usepackage{eurosym} 
+%raender kleiner machen
+\usepackage{geometry}
+\geometry{verbose,a4paper,bottom=3cm}
+
+%Fußnoten ohne Nummern
+\usepackage{nccfoots}
+%Klickbare Links
+%\usepackage[hidelinks]{hyperref}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!40!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!60!black}
+}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\pagestyle{myheadings}
+\markright{HAW Hamburg, Media Systems, SoSe 15}
+\begin{document}
+\newpage
+
+
+\begin{verbatim}
+
+
+
+
+\end{verbatim}
+\begin{center}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\HRule \\[0.4cm]
+{ \huge \bfseries Entwicklerhandbuch}
+\HRule
+
+\Large{Natural Beverages Webshop} \\[1cm]
+
+\begin{minipage}{0.55\textwidth}
+\begin{flushleft} \large
+\emph{Author:} \\
+\emph{Matrikelnummer:} \\
+\emph{Fach:} \\
+\emph{Dozent:}
+\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{____ \textsc{____}} \\
+\emph{________} \\
+\emph{RDB} \\
+\emph{____ \textsc{_____}}
+\end{flushright}
+\end{minipage}
+\end{center}
+\begin{verbatim}
+
+
+
+\end{verbatim}
+
+\begin{abstract}
+\noindent %kein eingerueckter Satz
+Ein Entwicklertagebuch zum RDB Projekt \\ [1cm]
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+\listoffigures
+
+\newpage
+%fragestellung, Einleitung, Relevanz
+\section{Fragestellung}
+\subsection{Einleitung}
+
+\end{document}
