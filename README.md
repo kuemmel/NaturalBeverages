@@ -1,5 +1,5 @@
 ##
-# This is a small project for a lectore on databases.
+# This is a small project for a lecture on databases.
 #
 # Text partially in German
 ##
