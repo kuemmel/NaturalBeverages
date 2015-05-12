@@ -1,15 +1,23 @@
 ##
-#
+# 
 # - Users (Email!, Nick, Name, Surname, Date of Birth, Address, Date of sign up)
 # - Beverages (Name!, Firm!, Amount left, Price per unit, Container, Category)
 # - Crates (Name!, Amount per Crate!, Refund!)
 # - Containers(Name!, Amount per Unit(L), Refund, Crate)
-# - Orders (Email!, List Of Beverages!, Date!)
-# - ShoppingCart (Email!, Beverage)
+# - Orders (id!, Email, Date, service, price, refundSum)
+# - ShoppingCart (orderID, Beverage, Crate, amount)
 # - Category (Name!)
 ##
+create database if not exists BeverageShop;
+
+use BeverageShop;
+
+##
+# Create tables
+##
+
 create table if not exists Users (
-	  email VARCHAR(64)
+	  email varchar(64)
 	, nick char(10)
 	, name char(12)
 	, surname char(12)
@@ -39,7 +47,7 @@ create table if not exists Containers (Name!, Amount per Unit(L), Refund, Crate)
 create table if not exists Beverages (
 	  name char(12)
 	, firm char(12)
-	, Amount left int(10)
+	, amountLeft int(10)
 	, pricePerUnit numeric(10,2)
 	, containerName numeric(2,2)
 	, categoryName char(12)
@@ -48,16 +56,24 @@ create table if not exists Beverages (
 
 
 create table if not exists Orders (
-	, email VARCHAR(64)
-	, shoppingCartID int(6)
+	, id mediumint not null auto_increment
+	, email varchar(64)
 	, dateOfOrder Date
+	, service boolean
+	, price numeric(6,2)
+	, refundSum numeric(3,2)
 	, constraint foreign key (email) references Users(email) on update restrict on delete cascade
-	, constraint foreign key (shoppingCartID) references ShoppingCart(id) on update restrict on delete cascade
-	, primary key (email,shoppingCartID,dateOfOrder)) engine = INNODB;
+	, primary key (email,dateOfOrder)) engine = INNODB;
 
 create table if not exists shoppingCart (
-	  orderID int(6)
+	  orderID mediumint
 	, BeverageName char(12)
+	, crate boolean
+	, amount int(4)
 	, constraint foreign key (beverageName) references Beverages(name) on update restrict on delete cascade
 	, constraint foreign key (orderID) references Orders(id) on update restrict on delete cascade
-	, primary key ()) engine = INNODB;
+	, primary key (BeverageName)) engine = INNODB;
+
+##
+# insert testvalues
+##

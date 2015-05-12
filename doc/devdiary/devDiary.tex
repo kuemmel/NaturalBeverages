@@ -27,6 +27,14 @@
     urlcolor={blue!60!black}
 }
 
+%umlgraphics
+%\ifx\pdftexversion\undefined
+%\usepackage[dvips]{graphicx}
+%\else
+%\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+%\fi
+
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 
@@ -63,10 +71,10 @@
 \hfill
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
-\emph{____ \textsc{____}} \\
-\emph{________} \\
+\emph{Author \textsc{A}} \\
+\emph{42} \\
 \emph{RDB} \\
-\emph{____ \textsc{_____}}
+\emph{Dozent \textsc{A}}
 \end{flushright}
 \end{minipage}
 \end{center}
@@ -88,7 +96,12 @@ Ein Entwicklertagebuch zum RDB Projekt \\ [1cm]
 
 \newpage
 %fragestellung, Einleitung, Relevanz
-\section{Fragestellung}
-\subsection{Einleitung}
+\section{Einleitung}
 
+\section{Webseiten Design}
+
+\section{Datenbank}
+\includegraphics{databaseDesign.1}
+
+\section{Programmtechnisches Design}
 \end{document}
