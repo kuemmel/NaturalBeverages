@@ -1,0 +1,10 @@
+##
+# Review git repository for more details
+##
+
+11.5.15
+	- git repository erstellt
+12.5.15
+	- DataBases Definition erstellt
+	- DevDiary erstellt
+	- 
