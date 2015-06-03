@@ -1,0 +1,9 @@
+Rot; 1001
+Gelb; 1002
+Rosa; 1003
+Dunkelrot;1004
+Weiss;1005
+Orange;1006
+Pink;1007
+Blau;1008
+Dunkelblau;1009
