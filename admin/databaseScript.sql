@@ -17,8 +17,8 @@ use BeverageShop;
 ##
 # Create tables
 ##
-delete table if exists Users; 
-create table Users (
+drop table if exists Users; 
+create table users (
 	  email varchar(64)
 	, nick char(10)
 	, password TEXT
@@ -31,21 +31,21 @@ create table Users (
 	, dateOfSignUp timestamp default current_timestamp on update current_timestamp
 	, primary key (email)) engine = INNODB;
 
-delete table if exists Categories; 
-create table Categories (
+drop table if exists Categories; 
+create table categories (
 	  name char(12)
 	, primary key (name)) engine = INNODB;
 
-delete table if exists Crates; 
-create table Crates (
+drop table if exists Crates; 
+create table crates (
 	  id mediumint not null auto_increment
 	, name char(12)
 	, amountPerCrate int(3)
 	, refund numeric(2,2)
 	, primary key (id)) engine = INNODB;
 
-delete table if exists Containers; 
-create table Containers (
+drop table if exists Containers; 
+create table containers (
 	  id mediumint not null auto_increment
 	, name char(12)
 	, amountPerUnit numeric(2,2)
@@ -54,8 +54,8 @@ create table Containers (
 	, constraint foreign key (crateName) references Crates(name) on update restrict on delete cascade
 	, primary key(id)) engine = INNODB;
 
-delete table if exists Beverages; 
-create table Beverages (
+drop table if exists Beverages; 
+create table beverages (
 	  name char(12)
 	, firm char(12)
 	, amountLeft int(10)
@@ -66,8 +66,8 @@ create table Beverages (
 	, constraint foreign key (containerId) references Containers(id) on update restrict on delete cascade
 	, primary key (name,firm)) engine = INNODB;
 
-delete table if exists Orders; 
-create table Orders (
+drop table if exists Orders; 
+create table orders (
 	  id mediumint not null unique auto_increment # is needed as a reference to the shoppingcart relation
 	, email varchar(64)
 	, dateOfOrder timestamp default current_timestamp on update current_timestamp
@@ -75,8 +75,8 @@ create table Orders (
 	, constraint foreign key (email) references Users(email) on update restrict on delete cascade
 	, primary key (email,dateOfOrder)) engine = INNODB;
 
-delete table if exists BoughtGoods; 
-create table BoughtGoods (
+drop table if exists BoughtGoods; 
+create table boughtGoods (
 	  orderID mediumint
 	, BeverageName char(12)
 	, crate boolean
