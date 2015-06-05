@@ -1,0 +1,5 @@
+Bier
+Wein
+Met
+Saft
+Whiskey

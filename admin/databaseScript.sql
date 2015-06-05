@@ -10,80 +10,83 @@
 # - BoughtGoods (orderID, Beverage, Crate, amount)
 # - Category (Name!) -> maybe with an id to make category name changes possible
 ##
-create database if not exists BeverageShop;
 
-use BeverageShop;
+use dz39;
 
 ##
 # Create tables
 ##
-drop table if exists Users; 
+drop table if exists boughtgoods; 
+drop table if exists orders; 
+drop table if exists beverages; 
+drop table if exists containers; 
+drop table if exists crates; 
+drop table if exists categories; 
+drop table if exists users;
+
 create table users (
 	  email varchar(64)
-	, nick char(10)
-	, password TEXT
-	, name char(12)
-	, surname char(12)
-	, dateOfBirth Date
-	, address char(64)
+	, nick varchar(20)
+	, password text
+	, name varchar(20)
+	, surname varchar(20)
+	, dateofbirth date
+	, address varchar(64)
 	, floor int(2)
 	, zipcode int(6)
-	, dateOfSignUp timestamp default current_timestamp on update current_timestamp
+	, dateofsignup timestamp default current_timestamp on update current_timestamp
 	, primary key (email)) engine = INNODB;
 
-drop table if exists Categories; 
 create table categories (
-	  name char(12)
+	  name varchar(20)
 	, primary key (name)) engine = INNODB;
 
-drop table if exists Crates; 
 create table crates (
-	  id mediumint not null auto_increment
-	, name char(12)
-	, amountPerCrate int(3)
+	  name varchar(20)
+	, amountpercrate int(3)
 	, refund numeric(2,2)
-	, primary key (id)) engine = INNODB;
+	, primary key (name)) engine = INNODB;
 
-drop table if exists Containers; 
 create table containers (
-	  id mediumint not null auto_increment
-	, name char(12)
+	  name varchar(20)
 	, amountPerUnit numeric(2,2)
 	, refund numeric(2,2)
-	, crateName char(12)
-	, constraint foreign key (crateName) references Crates(name) on update restrict on delete cascade
-	, primary key(id)) engine = INNODB;
+	, crateName varchar(20)
+	, primary key(name)
+	, constraint foreign key (crateName) references dz39.crates(name) on update restrict on delete cascade
+	) engine = INNODB;
 
-drop table if exists Beverages; 
 create table beverages (
-	  name char(12)
-	, firm char(12)
-	, amountLeft int(10)
-	, pricePerUnit numeric(10,2)
-	, containerName numeric(2,2)
-	, categoryName char(12)
-	, constraint foreign key (categoryName) references Categories(name) on update restrict on delete cascade
-	, constraint foreign key (containerId) references Containers(id) on update restrict on delete cascade
-	, primary key (name,firm)) engine = INNODB;
+	  name varchar(20)
+	, firm varchar(20)
+	, imagePath text
+	, amountleft int(10)
+	, priceperunit numeric(10,2)
+	, containerName varchar(20)
+	, categoryName varchar(20)
+	, primary key (name,firm)
+	, constraint foreign key (categoryName) references dz39.categories(name) on update restrict on delete cascade
+	, constraint foreign key (containerName) references dz39.containers(name) on update restrict on delete cascade
+	) engine = INNODB;
 
-drop table if exists Orders; 
 create table orders (
-	  id mediumint not null unique auto_increment # is needed as a reference to the shoppingcart relation
+	  id mediumint not null unique auto_increment
 	, email varchar(64)
-	, dateOfOrder timestamp default current_timestamp on update current_timestamp
+	, dateoforder timestamp default current_timestamp on update current_timestamp
 	, service boolean
-	, constraint foreign key (email) references Users(email) on update restrict on delete cascade
-	, primary key (email,dateOfOrder)) engine = INNODB;
+	, primary key (email,dateoforder)
+	, constraint foreign key (email) references dz39.users(email) on update restrict on delete cascade
+	) engine = INNODB;
 
-drop table if exists BoughtGoods; 
-create table boughtGoods (
-	  orderID mediumint
-	, BeverageName char(12)
+create table boughtgoods (
+	  orderid mediumint
+	, beveragename varchar(20)
 	, crate boolean
 	, amount int(4)
-	, constraint foreign key (beverageName) references Beverages(name) on update restrict on delete cascade
-	, constraint foreign key (orderID) references Orders(id) on update restrict on delete cascade
-	, primary key (orderID)) engine = INNODB;
+	, primary key (orderid)	
+	, constraint foreign key (beveragename) references dz39.beverages(name) on update restrict on delete cascade
+	, constraint foreign key (orderid) references dz39.orders(id) on update restrict on delete cascade
+	) engine = INNODB;
 
 ##
 # insert static values
