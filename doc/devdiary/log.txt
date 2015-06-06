@@ -7,4 +7,18 @@
 12.5.15
 	- DataBases Definition erstellt
 	- DevDiary erstellt
-	- 
+29.5.15
+	- Admin Servlets angefangen
+3.6.15
+	- public_html hinzugefuegt, erstes System auf'm Server
+4.6.15
+	- Servlets beeinflussen jetzt die DB
+6.6.15
+	- Administrationstools vorerst fertig
+		-> Neue Datenbank mit Stammdaten erstellen
+		-> Produktdatensatz hinzufügen und löschen
+		todo: administrator muss sich einloggen
+7.7.15
+	- mit Shop angefangen
+		-> Session/login
+		-> jsp Daten in rd/webapps/jsp

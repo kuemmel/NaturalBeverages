@@ -1,19 +1,19 @@
 input metauml;
 beginfig(1);
-    Class.Users("Users")
-    	("Email")("nick","password","name","surname","date of birth","address","zipcode","date of sign up");
-    Class.Beverages("Beverages")
-    	("name","firm")("amount in stock","price per unit","container","category");
-    Class.Crates("Crates")
-    	("id")("name","amount per crate","refund","crate");
-    Class.Containers("Containers")
-    	("id")("name","amout per unit in L","refund","crate");
-    Class.Orders("Orders")
-    	("email","date")("id","service");
-    Class.BoughtGoods("BoughtGoods")
-    	("id")(,"beverage","crate","amount");
-    Class.Categories("Categories")
-    	("name")();
+    Class.Users("users")
+        ("email")("nick","password","name","surname","date of birth","address","zipcode","date of sign up");
+    Class.Beverages("beverages")
+        ("name","firm")("amount in stock","price per unit","container","category");
+    Class.Crates("crates")
+        ("name")("amount per crate","refund","crate");
+    Class.Containers("containers")
+        ("name")("amout per unit in l","refund","crate");
+    Class.Orders("orders")
+        ("email","date")("id","service");
+    Class.Boughtgoods("boughtgoods")
+        ("id")(,"beverage","crate","amount");
+    Class.Categories("categories")
+        ("name")();
 
 Users.nw = (0,0);
 Beverages.nw = Users.ne + (-100,0);

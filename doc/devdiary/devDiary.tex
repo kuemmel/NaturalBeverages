@@ -96,12 +96,31 @@ Ein Entwicklertagebuch zum RDB Projekt \\ [1cm]
 
 \newpage
 %fragestellung, Einleitung, Relevanz
-\section{Einleitung}
+\section{Einleitung - Konzept}
+Natural Beverages ist ein Webshop der sich auf "natürliche" Getränke spezialisiert. Also Getränke aus Früchten, Getreide und anderen Rohstoffen. \\ 
 
+Bio, FairTrade, lokale Ernährung sind aktuelle Stichworte und gerade zu Zeiten von Energy Drinks und Coca Cola hat sich eine Gruppe gefunden, die auf "natürliche" Produkte besteht. In diesem Sinne stellt "Natural Beverages" die Möglichkeit da auch lokale Sorten und Getränke zu kaufen. Hauptkategorien stellen Bier, Wein, Tees und Säfte.  
 \section{Webseiten Design}
 
 \section{Datenbank}
 \includegraphics{databaseDesign.1}
-
+Bei der Datenbank wurde stark auf den Verzicht von Id's geachtet. Id's machten letztendlich nur bei den Orders Sinn, da ein User am Tag mehrmals das gleiche bestellen kann und Date für einen Primary Key etwas unhandlich ist. \\
+Im Grunde teilt sich die Datenbank in drei Teile auf. Orders und Boughtgoods vereinigen dabei alle anderen: eine Bestellung eines users enthällt gekaufte Produkte mit Anzahl und Preis welche wiederum auf das Produkt zugreifen. Produkt, Category, Crate und Container beschreiben damit das Produkt insgesamt mit allen Anteilen.
 \section{Programmtechnisches Design}
+
+\section{Admin Tool}
+Das "Admin Tool" ist ein auf Servlets basierendes Webtool mit dem Sich Produkt Einträge aus der Datenbank hinzufügen und löschen lassen. Die Admintools werden durch den Zugriff auf /admin erreicht. 
+
+\section{User Stories}
+\begin{enumerate}
+	\item- As a client I want to browse the baverages of the shop
+	\item- As an older person I want the delivery service to carry my items into my apartment
+	\item- As a client I want to get a bill at the end of the order with the given address
+		- I also want to see:
+			- glass and crate refunds
+			- delivery-into-apartment price per litre
+	\item- As a client I want to be able to find the beverages I am looking for
+	\item- As a client I want to be able to view a help page
+	\item- I want to have the comfort of a user account to store previous orders
+	\end{enumerate}
 \end{document}

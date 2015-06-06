@@ -10,8 +10,8 @@ import javax.servlet.http.*;
 
 public class NaturalBeveragesAdmin extends HttpServlet
 {
-	protected final String userID = "dz39";
-	protected final String passwd = "H!!L";
+	protected final String userID = null;
+	protected final String passwd = null;
 	protected final String sqlServerLink = "jdbc:mysql://localhost:3306/";
 	protected Connection connection;
 	protected Statement statement;

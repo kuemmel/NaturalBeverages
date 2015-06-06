@@ -8,7 +8,8 @@ About:
 	- A fictitious WebShop and delivery service for "natural" beverages: Beer, Juice, Tea, Coffee, Whine, Mead
 	- Focus on bio and 'local' specials
 
-(crude) UserStories: 
+(crude) UserStories:
+	- DONE: As an Admin I want to add/list/delete products from the shop
 	- As a client I want to browse the baverages of the shop
 	- As an older person I want the delivery service to carry my items into my apartment
 	- As a client I want to get a bill at the end of the order with the given address
@@ -29,8 +30,3 @@ Design:
 	Colors:
 		- green/brown "nature"
 		- light colors "freedom, air" (pastel?)
-	Database:
-		- Users (Email!, Nick, Name, Surname, Date of Birth, Address, Date of sign up)
-		- Beverages (Name!, Firm!, Amount left, Price per unit, Amount per unit(L), Crate, Category)
-		- Crates (Category!, Amount per Crate!, Refund!)
-		- Orders (Email!, List Of Beverages!, Date!)
