@@ -10,8 +10,15 @@
 <BODY>
 	 <a href="index.jsp">Home</a>
 	 <hr>
-	 Registration complete, you can now try to sign in:
-	 <a href="index.jsp">Sign in</a>
+	 <%
+	 	session.removeAttribute("userID");
+
+	 	if(session.getAttribute("userID") == null)
+	 	{
+	 		out.println("You are now logged out. See you soon.");
+		}
+	 %>
+	</form>
 	<hr>
 </BODY>
 </HTML>

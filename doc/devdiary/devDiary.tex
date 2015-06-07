@@ -102,14 +102,22 @@ Natural Beverages ist ein Webshop der sich auf "natürliche" Getränke spezialis
 Bio, FairTrade, lokale Ernährung sind aktuelle Stichworte und gerade zu Zeiten von Energy Drinks und Coca Cola hat sich eine Gruppe gefunden, die auf "natürliche" Produkte besteht. In diesem Sinne stellt "Natural Beverages" die Möglichkeit da auch lokale Sorten und Getränke zu kaufen. Hauptkategorien stellen Bier, Wein, Tees und Säfte.  
 \section{Webseiten Design}
 
-\section{Datenbank}
-\includegraphics{databaseDesign.1}
-Bei der Datenbank wurde stark auf den Verzicht von Id's geachtet. Id's machten letztendlich nur bei den Orders Sinn, da ein User am Tag mehrmals das gleiche bestellen kann und Date für einen Primary Key etwas unhandlich ist. \\
-Im Grunde teilt sich die Datenbank in drei Teile auf. Orders und Boughtgoods vereinigen dabei alle anderen: eine Bestellung eines users enthällt gekaufte Produkte mit Anzahl und Preis welche wiederum auf das Produkt zugreifen. Produkt, Category, Crate und Container beschreiben damit das Produkt insgesamt mit allen Anteilen.
 \section{Programmtechnisches Design}
 
-\section{Admin Tool}
-Das "Admin Tool" ist ein auf Servlets basierendes Webtool mit dem Sich Produkt Einträge aus der Datenbank hinzufügen und löschen lassen. Die Admintools werden durch den Zugriff auf /admin erreicht. 
+\subsection{Datenbank}
+\includegraphics{databaseDesign.1}
+Bei der Datenbank wurde stark auf den Verzicht von Id's geachtet. Id's machten letztendlich nur bei den Orders, sowie den Usern Sinn da, ein User am Tag mehrmals das gleiche bestellen kann und Date für einen Primary Key etwas unhandlich ist. Außerdem könnte sich die Email eines Users ändern. \\
+Im Grunde teilt sich die Datenbank in drei Teile auf. Orders und Boughtgoods vereinigen dabei alle anderen: eine Bestellung eines Users enthällt gekaufte Produkte mit Anzahl und Preis welche wiederum auf das Produkt zugreifen. Produkt, Category, Crate und Container beschreiben damit das Produkt insgesamt mit allen Anteilen. \\
+Es lässt sich darüber streiten ob ein solche Datenbankkonstrukt in der reellen Welt einsatzbereit ist. Sobald eine Kategorie umbenannt werden soll entsteht ein riesiger Schaden, da das nicht einfach so geschehen kann, ohne das Informationen verloren gehen können. Mit einer id als Primary Key wäre dies jedoch ohne weiteres möglich.
+
+\subsection{Authentication und User Management}
+Ein LogIn geschieht über einen Abruf und Abgleich der Datenbank. Das eingegebene Passwort wird in md5 gehasht und anschließen mit dem Datenbankeintrag (ebenfalls md5) abgeglichen. Vermutlich würde man in der reellen Welt eine bessere Hashingmethode verwenden. Beim erfolgreichen Einloggen wird der Session eine Variable("nick") gesetzt. \\
+Ausloggen ist einfach nur das Entfernen dieser Variable.\\
+Die Ursprüngliche Idee war einen Filter(siehe /WEB-INF/NaturalBeverages/SessionFilter.java) zu benutzen. Sofern die SessionVariable "nick" (die beim einloggen gesetzt wurde) nicht null beträgt, wird der Client auf die angeforderte Seite weiter- oder ansonsten auf eine Fehlerseite geführt. Problem daran ist, dass auf dem Produktionsserver (praxi) Annotations nicht funktionieren und die web.xml auch nicht anfassbar war. \\
+Somit dient eine einfache Abfrage über jeder entsprechenden Seite zur Kontrolle der Authentikation.  
+
+\subsection{Admin Tool}
+Das "Admin Tool" ist ein auf Servlets basierendes Webtool mit dem sich Produkt Einträge aus der Datenbank hinzufügen und löschen lassen. Die Admintools werden durch den Zugriff auf /admin erreicht. 
 
 \section{User Stories}
 \begin{enumerate}

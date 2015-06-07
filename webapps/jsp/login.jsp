@@ -12,7 +12,7 @@
 
 		if(resultSet.next())
 		{
-			session.setAttribute("nick",resultSet.getString("nick"));
+			session.setAttribute("userID",resultSet.getString("id"));
 			response.sendRedirect("userSettings.jsp");
 		} else
 		{

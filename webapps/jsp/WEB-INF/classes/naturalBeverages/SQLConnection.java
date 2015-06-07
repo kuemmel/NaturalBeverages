@@ -69,12 +69,25 @@ public class SQLConnection
 		{
 			//ResultSet resultSet = statement.executeQuery("select count(*) as count from "+table);
 			//return resultSet.getInt("count");
-			ResultSet resultSet = statement.executeQuery("select * from "+table);
+			ResultSet resultSet = selectAllFrom(table);
 			return resultSet.last() ? resultSet.getRow() : 0; 
 		} catch(Exception e) 
 		{
 			return 0;
 		}
+	}
+
+	/**
+	 * Some selects to make life easier
+	 **/
+	public ResultSet selectAllFrom(String table) throws SQLException
+	{
+		return statement.executeQuery("select * from "+table);
+	}
+
+	public ResultSet selectAllFromWhere(String table, String field, String value) throws SQLException
+	{
+		return statement.executeQuery("select * from "+table+" where "+field+" = "+value);
 	}
 
 	/**

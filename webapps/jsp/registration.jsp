@@ -43,7 +43,6 @@
         response.sendRedirect("regComplete.jsp");
     } catch(SQLException e)
     {
-        out.println("ASDSDASD");
         session.setAttribute("sqlErrorCode",String.valueOf(e.getErrorCode()));
         response.sendRedirect("register.jsp");
     }

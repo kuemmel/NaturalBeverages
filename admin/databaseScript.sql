@@ -25,7 +25,8 @@ drop table if exists categories;
 drop table if exists users;
 
 create table users (
-	  email varchar(64)
+	  id mediumint not null unique auto_increment
+	, email varchar(64) unique
 	, nick varchar(20)
 	, password text
 	, name varchar(20)
@@ -35,7 +36,7 @@ create table users (
 	, floor int(2)
 	, zipcode int(6)
 	, dateOfSignUp timestamp default current_timestamp on update current_timestamp
-	, primary key (email)) engine = INNODB;
+	, primary key (id)) engine = INNODB;
 
 create table categories (
 	  name varchar(20)

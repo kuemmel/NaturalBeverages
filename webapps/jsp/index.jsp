@@ -4,32 +4,7 @@
 <HEAD>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<TITLE>Home</TITLE>
-	<SCRIPT TYPE="text/javascript">
-
-/**
- * Delete and re-insert default values into fields
- * also change form type to password in the password field
- **/
-function onBlur(form)
-{
-	if(form.value === '')
-	{
-		form.value = form.defaultValue;
-	}
-}
-function onFocus(form)
-{
-	if (form.name == "password")
-	{
-		form.type = "password";
-	}
-
-	if(form.value === form.defaultValue)
-	{
-		form.value = '';
-	}
-}
-
+	<SCRIPT TYPE="text/javascript" language="JavaScript" src="scripts/js/utils.js" >
 	</SCRIPT>
 </HEAD>
 <BODY>
