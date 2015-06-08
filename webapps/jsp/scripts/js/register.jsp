@@ -89,9 +89,9 @@
 		if (sqlError === 1062)
 		{
 			window.alert("Email already in use (MySQL Err 1062)")
-		} (else if sqlError > 0)
+		} else if (sqlError > 0)
 		{
-			window.alert("Another sql error"+sqlError+", have a look on https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html ");
+			window.alert("Another sql error "+sqlError+", have a look at https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html");
 			<% session.removeAttribute("sqlErrorCode"); %>
 		}
 

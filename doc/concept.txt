@@ -30,3 +30,4 @@ Design:
 	Colors:
 		- green/brown "nature"
 		- light colors "freedom, air" (pastel?)
+		- https://scotch.io/tutorials/make-material-design-websites-with-the-materialize-css-framework
