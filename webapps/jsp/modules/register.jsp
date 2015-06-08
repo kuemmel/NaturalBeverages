@@ -33,38 +33,32 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <input id="email" name="email" type="email" class="validate">
           <label for="email">Email</label>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <input id="nick" name="nick" type="text" class="validate">
           <label for="nick">Nick</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <input id="dateOfBirth" name="dateOfBirth" type="date" class="datepicker">
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <input id="floor" name="floor" type="text" class="validate">
           <label for="floor">Floor</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <input id="zipCode" name="zipCode" type="text" class="validate">
-          <label for="zipCode">Zipcode</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <input id="address" name="address" type="text" class="validate">
           <label for="address">Address</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="zipCode" name="zipCode" type="text" class="validate">
+          <label for="zipCode">Zipcode</label>
         </div>
       </div>
       <div class="row">
