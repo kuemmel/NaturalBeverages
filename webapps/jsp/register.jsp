@@ -14,7 +14,7 @@
 	<SCRIPT TYPE="text/javascript" language="JavaScript" src="scripts/js/utils.js" >
 	</SCRIPT>
 </HEAD>
-<BODY onload="loadFormInput()">
+<BODY onload="loadFormInput()" class="blue-grey darken-3">
 
   <!-- jQuery is required by Materialize to function -->
  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -33,17 +33,15 @@
 	</div>
 </nav>
 
-<div class="container">
+<div class="container  blue-grey lighten-5">
 	<!--<div class="intro brown darken-2 z-depth-1">
 	  <h1 class="grey-text text-lighten-5">Natural Beverages</h1>
 	</div>-->
  <div class="row">
-      <div class="row">
-        <div class="col s12 m6">
-       	<div class="row">
-          <div class="card blue-grey darken-1">
+        <!--<div class="col s12 m6">-->
+          <!--<div class="card blue-grey darken-1">-->
 
-            <div class="card-content white-text">
+            <!--<div class="card-content white-text">-->
               	<!--<span class="card-title">Register</span>-->
 				<form class="col s8" method="post" name="form" id="form" action="registration.jsp" onsubmit="return(validate(this));">
 					<div class="input-field row s6"> 
@@ -79,13 +77,13 @@
 				</form>
 			</div>
             </div>
-            <div class="card-action">
+            <!--<div class="card-action">
 				<button class="btn waves-effect waves-light" type="submit" name="action" onclick="document.getElementById('form').submit();"> Submit
 	    			<i class="mdi-content-send right"></i>
 	  			</button>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
 	</div>
 </div>
