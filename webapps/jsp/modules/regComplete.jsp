@@ -10,7 +10,9 @@
 <!-- navbar -->
 <jsp:include page="nav.jsp" />
 <div class="container  blue-grey lighten-5">
-	 Registration complete, you can now try to sign in.
+	<div class="row">
+		<h5>Registration complete, you can now try to sign in.</h5>
 	</div>
+</div>
 </BODY>
 </HTML>

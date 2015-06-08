@@ -16,7 +16,7 @@
 			response.sendRedirect("userSettings.jsp");
 		} else
 		{
-	 		out.println("Invalid password <a href='index.jsp'>try again</a>");
+	 		out.println("Invalid password <a href="+request.getContextPath()+"/index.jsp>try again</a>");
 		}
 
 	} catch (SQLException e)
@@ -25,3 +25,4 @@
 	}
 
 %>
+asdasdasd

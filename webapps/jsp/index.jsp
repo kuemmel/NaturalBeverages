@@ -1,19 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<HTML>
-<HEAD>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<TITLE>Home</TITLE>
-	<SCRIPT TYPE="text/javascript" language="JavaScript" src="scripts/js/utils.js" >
-	</SCRIPT>
-</HEAD>
-<BODY>
-	<form method="post" action="login.jsp">
-		Sign in: 
-		<input type="text" name="email" value="email" onblur="onBlur(this)" onfocus="onFocus(this)"/>
-		<input type="text" name="password" value="password" onblur="onBlur(this)" onfocus="onFocus(this)" />
-		<input type="submit" name="login" value="login" />
-	</form> <a href="register.jsp">Sign Up</a>
-	<hr>
+<%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
+<%
+	request.setAttribute("pageTitle","Home");
+	request.setAttribute("scripts","utils.js");
+%>
+<!--head-->
+<jsp:include page="modules/siteHead.jsp" />
+<BODY class="blue-grey darken-4">
+<!-- navbar -->
+<jsp:include page="modules/nav.jsp" />
+<div class="container  blue-grey lighten-5">
+	<div class="row">
+		Welcome!
+	</div>
+</div>
 </BODY>
 </HTML>

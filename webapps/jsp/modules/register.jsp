@@ -5,13 +5,13 @@
 	request.setAttribute("scripts","utils.js register.jsp");
 %>
 <!--head-->
-<jsp:include page="modules/siteHead.jsp" />
+<jsp:include page="siteHead.jsp" />
 <BODY onload="loadFormInput()" class="blue-grey darken-4">
 <!-- navbar -->
-<jsp:include page="modules/nav.jsp" />
+<jsp:include page="nav.jsp" />
 <div class="container  blue-grey lighten-5">
 	 <div class="row">
-    <form class="col s12" id="form" method="post" name="form" id="form" action="modules/registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
+    <form class="col s12" id="form" method="post" name="form" action="modules/registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
       <div class="row">
         <div class="input-field col s6">
           <input id="name" name="name" type="text" class="validate">
