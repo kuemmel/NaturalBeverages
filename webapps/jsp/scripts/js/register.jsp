@@ -3,9 +3,10 @@
 	/**
 	 * validate each input, such that it's not empty or wrong in case of password. zipcode, email,..
 	 **/
-	function validate(form)
+	function validate()
 	{
 		var valid = true;
+		var form = document.getElementById("form");
 		var message = "";
 		var hash = {};
 		hash["email"] 			= form["email"].value;
@@ -50,23 +51,21 @@
 	  	}
 	  	if(!hash["floor"].match(/\d{1,2}/))
 	  	{
-	  		message += "You live on the "+hash["floor"]+"floor?!\n";
+	  		message += "You live on the "+hash["floor"]+" floor?!\n";
 	  		hash["floor"] = "";
 			valid = false;
 	  	}
-	  	if(!hash["email"].match(/^([a-zA-z\-]+@[a-zA-z\-\+]+\.[a-z]+)$/))
+	  	if(!hash["email"].match(/^([a-zA-z0-9\-]+@[a-zA-z\-\+]+\.[a-z]+)$/))
 	  	{
 	  		message += "no valid email address.\n";
 	  		hash["email"] = "";
 			valid = false;
 	  	}
-	  	if(!hash["dateOfBirth"].match(/^\d\d\.\d\d\.\d{4}/))
+	  	if(valid)
 	  	{
-	  		message += "Date must be dd.mm.yyyy. eg: 06.06.1945 \n";
-	  		valid = false;
-	  	}
-
-	  	if(!valid)
+	  		//document.getElementById('form').submit()
+	  		return true;
+	  	} else
 	  	{
 	  		window.alert(message);
 	  		rememberFormInput(hash);
@@ -88,7 +87,8 @@
 	
 		if (sqlError === 1062)
 		{
-			window.alert("Email already in use (MySQL Err 1062)")
+			window.alert("Email already in use (MySQL Err 1062)");
+			<% session.removeAttribute("sqlErrorCode"); %>
 		} else if (sqlError > 0)
 		{
 			window.alert("Another sql error "+sqlError+", have a look at https://dev.mysql.com/doc/refman/5.5/en/error-messages-server.html");

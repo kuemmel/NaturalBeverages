@@ -17,12 +17,10 @@
     String surname     = request.getParameter("surname");
     String birthString = request.getParameter("dateOfBirth");
     String address     = request.getParameter("address");
-    int floor          = Integer.parseInt(request.getParameter("floor"));
-    int zipCode        = Integer.parseInt(request.getParameter("zipCode"));
+    int floor       = Integer.parseInt((String) request.getParameter("floor"));
+    int zipCode     = Integer.parseInt((String) request.getParameter("zipCode"));
 
-
-
-    DateFormat dateFormat     = new SimpleDateFormat("dd.mm.yyyy",Locale.GERMAN);
+    DateFormat dateFormat     = new SimpleDateFormat("yyyy-mm-dd",Locale.GERMAN);
     java.sql.Date dateOfBirth = new java.sql.Date(dateFormat.parse(birthString).getTime());
     SQLConnection sqlConnection = new SQLConnection(response.getWriter());
     password = sqlConnection.encryptMD5(password);
@@ -44,7 +42,7 @@
     } catch(SQLException e)
     {
         session.setAttribute("sqlErrorCode",String.valueOf(e.getErrorCode()));
-        response.sendRedirect("register.jsp");
+        response.sendRedirect("../register.jsp");
     }
 
 
