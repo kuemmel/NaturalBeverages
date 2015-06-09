@@ -90,6 +90,17 @@ public class SQLConnection
 		return statement.executeQuery("select * from "+table+" where "+field+" = "+value);
 	}
 
+	public ResultSet selectAllFromWhere2(String table, String field1, 
+		String value1, String field2, String value2) throws SQLException
+	{
+		return statement.executeQuery("select * from "+table+" where "+field1+" = "+value1+" and "+field2+" = "+value2);
+	}
+
+	public selectXFromWhere(String table, String wanted, String field, String value) throws SQLException
+	{
+		return statement.executeQuery("select "+wanted+" from "+table+" where "+field+" = "+value);
+	}
+
 	/**
 	 * Encrypt passwords in a weak md5 fashion.
 	 * 
@@ -117,7 +128,7 @@ public class SQLConnection
 		{
             StackTraceElement ste = new Exception().getStackTrace()[0];
             String line = ste.getClassName() + String.valueOf(ste.getLineNumber());
-            out.println("Could not encrypt password, cause: "+e+"at line "+line+"<br />");
+            out.println("Could not encrypt password, cause: "+e+" at line "+line+"<br />");
 		}
 		return stringBuffer.toString();
 	}

@@ -54,13 +54,5 @@
 </div>
 </nav>
 <div class="row">
-<%
-if (request.getAttribute("pageTitle") == "Home")
-{
-  out.println("<img class=\"responsive-img\" src=\""+request.getContextPath()+"/pictures/bannerFlat2.png\">");
-} else
-{
-  out.println("<img class=\"responsive-img\" src=\""+request.getContextPath()+"/pictures/bannerFlat2.png\">");
-}
-%>
+  <img class="responsive-img" src="images/bannerFlat2.png">
 </div>
