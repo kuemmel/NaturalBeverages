@@ -3,7 +3,7 @@
 <%
 
   SQLConnection sqlConnection = new SQLConnection(response.getWriter());
-  ResultSet resultSet = sqlConnection.sqlQuery("select FlugNr, Datum, Pilotname, Flugstunden, Maschinentyp, Sitze from Pilot natural join Maschine natural join FlugEinsatzPlan;");
+  ResultSet resultSet = sqlConnection.getProducts();
 
 
   while(resultSet.next())
@@ -35,7 +35,12 @@
         </div>
         <div class="row">
           <div class="card-action" > <!--style="background-color:green;"-->
-            <a href="#">Buy</a>
+            <form action="" method="GET">
+              <input type="hidden" value="test" name="name" />
+              <button class="btn waves-effect waves-light" type="submit">Add to cart
+               <i class="mdi-content-send right"></i>
+              </button>
+            </form>
           </div>
         </div>
       </div>

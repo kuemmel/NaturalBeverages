@@ -15,9 +15,9 @@
   <li><a href="${pageContext.request.contextPath}/index.jsp">Index</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/search.jsp">Search</a></li>
   <li class="divider"></li>
-  <li><a href="${pageContext.request.contextPath}/modules/register.jsp">Sign Up</a></li>
-  <li><a href="${pageContext.request.contextPath}/modules/cart.jsp">Cart</a></li>
-  <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp">UserSettings</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/register.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/cart.jsp <%if(!loggedIn)out.println("hide");%>">Cart</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp <%if(!loggedIn)out.println("hide");%>">UserSettings</a></li>
 </ul>
 <!--navbar for every site -->
 <nav class="brown darken-3 z-depth-2">
@@ -42,7 +42,7 @@
             </div>
           </li>
         </form>
-        <li><a href="${pageContext.request.contextPath}/modules/logout.jsp"><i class="mdi-action-exit-to-app <%if(!loggedIn)out.println("hide");%>"></i></a></li>
+        <li><a href="${pageContext.request.contextPath}/modules/logout.jsp">Log Out<i class="mdi-action-exit-to-app right <%if(!loggedIn)out.println("hide");%>"></i></a></li>
         <li>
           <a class="dropdown-button" href="#!" data-activates="siteNavigationDropdown">
             <i class="mdi-action-list right"></i>

@@ -29,6 +29,11 @@ public class Money
 	{
 		return new Money(this.value.add(value.getValue()));
 	}
+
+	public Money multiply(Money value)
+	{
+		return new Money(this.value.multiply(value.getValue()));
+	}
 	
 	public Money subtract(Money value)
 	{

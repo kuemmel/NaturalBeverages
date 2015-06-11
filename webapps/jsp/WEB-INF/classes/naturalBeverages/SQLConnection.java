@@ -34,10 +34,6 @@ public class SQLConnection
 	{
 		try
 		{
-			//if(passwd == null || userID == null)
-			//{
-			//	throw new RuntimeException("Credentials in NBAdmin missing.");
-			//}
 			this.loadDriver();
 			this.connection = DriverManager.getConnection(sqlServerLink, userID, passwd);
 			this.statement = this.connection.createStatement();
@@ -67,8 +63,6 @@ public class SQLConnection
 	{
 		try
 		{
-			//ResultSet resultSet = statement.executeQuery("select count(*) as count from "+table);
-			//return resultSet.getInt("count");
 			ResultSet resultSet = selectAllFrom(table);
 			return resultSet.last() ? resultSet.getRow() : 0; 
 		} catch(Exception e) 
@@ -96,9 +90,29 @@ public class SQLConnection
 		return statement.executeQuery("select * from "+table+" where "+field1+" = "+value1+" and "+field2+" = "+value2);
 	}
 
-	public selectXFromWhere(String table, String wanted, String field, String value) throws SQLException
+	public ResultSet selectXFromWhere(String table, String wanted, String field, String value) throws SQLException
 	{
 		return statement.executeQuery("select "+wanted+" from "+table+" where "+field+" = "+value);
+	}
+
+	/**
+	 * because this is a kind of long query
+	 * Do a left join on beverages with it's foreign keys.
+	 * natural join would not account for this, as it 
+	 * will swallow some rows where there are for example the same
+	 * containers (i.e two beers)
+	 * left join on beverages will output all the beverages! 
+	 **/
+	public ResultSet getProducts()
+	{
+		String query = "select beverages.name, firm, imagePath
+		, amountLeft, pricePerUnit, amountPerUnit, containers.refund
+		, amountPerCrate, crates.refund, categories.name from beverages"
+		+ "left join on(beverages.containerName = containers.name)"
+		+ "left join on(beverages.categoryName = categories.name)"
+		+ "left join on(containers.name = categories.name";
+
+		return statement.executeQuery(query);
 	}
 
 	/**

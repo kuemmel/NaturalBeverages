@@ -12,5 +12,18 @@
 <div class="container  blue-grey lighten-5">
 <!-- tabs -->
 
+<%
+
+  SQLConnection sqlConnection = new SQLConnection(response.getWriter());
+  ResultSet resultSet = sqlConnection.getProducts();
+
+
+  while(resultSet.next())
+  {
+    Product product = new Product(resultSet);
+    out.println(product.returnAsHtmlCard());
+  }
+%>
+
 </BODY>
 </HTML>
