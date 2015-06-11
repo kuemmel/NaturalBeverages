@@ -62,13 +62,15 @@ create table beverages (
 	, firm varchar(20)
 	, imagePath text
 	, amountLeft int(10)
-	, priceperunit numeric(10,2)
+	, pricePerUnit numeric(10,2)
 	, containerName varchar(20)
 	, categoryName varchar(20)
 	, primary key (name,firm)
 	, constraint foreign key (categoryName) references dz39.categories(name) on update restrict on delete cascade
 	, constraint foreign key (containerName) references dz39.containers(name) on update restrict on delete cascade
 	) engine = INNODB;
+
+
 
 create table orders (
 	  id mediumint not null unique auto_increment
