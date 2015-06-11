@@ -23,6 +23,7 @@ public class Product
 
 	/**
 	 * Takes a resultset of a natural join of beverages,container and crate and saves the data inside this object.
+	 * So the data should come like this:
 	 * resultSet.next() should have been called on calling this method 
 	 **/
 	private void getProductFromResultSet(ResultSet resultSet, SQLConnection sqlConnection)
