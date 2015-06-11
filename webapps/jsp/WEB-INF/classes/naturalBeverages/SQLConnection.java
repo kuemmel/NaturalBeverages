@@ -79,6 +79,9 @@ public class SQLConnection
 
 	/**
 	 * Some selects to make life easier
+ 	 * 9.6.15: added more methods
+ 	 * AND now sanitize the input
+	 *
 	 **/
 	public ResultSet selectAllFrom(String table) throws SQLException
 	{
@@ -88,6 +91,18 @@ public class SQLConnection
 	public ResultSet selectAllFromWhere(String table, String field, String value) throws SQLException
 	{
 		return statement.executeQuery("select * from "+table+" where "+field+" = "+value);
+	}
+
+	public ResultSet selectAllFromWhereAnd(String table, String field, String value
+		, String field2, String value2) throws SQLException
+	{
+		return statement.executeQuery("select * from "+table+" where "
+			+field+" = "+value+" and "+field2+" = "+value2);
+	}
+
+	public ResultSet selectXfromWhere(String table, String target, String field, String value) throws SQLException
+	{
+		return statement.executeQuery("select "+target+" from "+table+" where "+field+" = "+value);
 	}
 
 	/**
