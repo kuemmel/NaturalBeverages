@@ -18,7 +18,8 @@
             <div class="card-image row" style="margin-top:20px;">
               <img src="images/product/beermug.jpg" style="max-height:250px;max-width:250px;">
             </div>
-            <span class="card-title" style="padding-left:10px;">Name</span> <!--style="background-color:blue;"-->
+            <span class="card-title" style="padding-left:10px;">Name(1L)</span> <!--style="background-color:blue;"-->
+            <div style="padding-left:20px;">category</div>
           </div>
           <div class="card-content col" ><!--style="background-color:red;"-->
           <table>
@@ -46,13 +47,17 @@
         <div class="row">
           <div class="card-action" > <!--style="background-color:green;"-->
             <form action="" method="GET">
-              <div class="col">
-                <button class="btn waves-effect waves-light col" type="submit">Add to cart
+              <div class="col" style="width:30%;">
+                  <p>
+                    <button class="btn waves-effect waves-light col" type="submit">Add to cart
+                  </p>
                  <i class="mdi-content-send right"></i>
                 </button>
               </div>
-              <div class="col">
-                <input type="range-field right" id="test5" min="0" max="100" />
+              <div class="col" style="width:70%;">
+                <p class="range-field">
+                  <input type="range" class="col" id="test5" min="0" max="100" style="width:100%;" /> <!--style="overflow:hidden";-->
+                </p>
               </div>
             </form>
           </div>

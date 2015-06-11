@@ -14,5 +14,6 @@
 		Welcome!
 	</div>
 </div>
+<jsp:include page="/modules/footer.html" />
 </BODY>
 </HTML>
