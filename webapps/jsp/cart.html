@@ -1,0 +1,32 @@
+  <HEAD>
+  <LINK type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  <LINK type="text/css" rel="stylesheet" href="css/style.css">
+  <SCRIPT type="text/javascript" src="scripts/js/jquery-2.1.1.min.js"></SCRIPT>
+  <SCRIPT type="text/javascript" src="scripts/js/materialize.min.js"></SCRIPT>
+  <SCRIPT type="text/javascript">
+     $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+  </SCRIPT>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META name="viewport" content="width=device-width, initial-scale=1"/>
+  <TITLE>cartTest</TITLE>
+</HEAD>
+<body>
+
+
+  <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+          
+</body>

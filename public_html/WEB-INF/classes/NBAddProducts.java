@@ -61,7 +61,7 @@
                 out.println("<tr>");
                 out.println("<td>"+resultSet.getString("name")+"</td>");
                 out.println("<td>"+resultSet.getString("firm")+"</td>");
-                out.println("<td><img height=\"42\" width=\"42\" src=\"../"+resultSet.getString("imagePath")+"\" /></td>");
+                out.println("<td><img height=\"42\" width=\"42\" src=\""+request.getContextPath()+"/public_html"+resultSet.getString("imagePath")+"\" /></td>");
                 out.println("<td>"+resultSet.getInt("amountLeft")+"</td>");
                 out.println("<td>"+resultSet.getBigDecimal("pricePerUnit")+"</td>");
                 out.println("<td>"+resultSet.getString("containerName")+"</td>");

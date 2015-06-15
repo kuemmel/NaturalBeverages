@@ -18,10 +18,16 @@ public class Product
 	private Money  refundPerCrate;
 	private int    amountPerCrate;
 	private String categoryName;
+	// the amount of products to be bought
+	private int amount;
+	// if bought as crates
+	private boolean crate;
 
 	public Product(ResultSet resultSet)
 	{
 		getProductFromResultSet(resultSet);
+		this.amount = 0;
+		this.crate = false;
 	}
 
 	/**
@@ -53,6 +59,21 @@ public class Product
 			throw new RuntimeException("ResultSet empty trying to get products: "+e+" "+line);
 		}
 	}
+
+	public String returnAsHtmlTableRow()
+	{
+		return "<tr>\n"
+			+	  "<td>"+this.name+"</td>\n"
+			+	  "<td>"+this.firm+"</td>\n"
+			+	  "<td>"+pricePerUnit+"</td>\n"
+			+	  "<td>"+refundPerUnit+"</td>\n"
+			+	  "<td>"+this.amount+"</td>\n"
+			+	  "<td>"+((crate)? "yes" : "no" )+"</td>\n"
+			+	  "<td>"+getPricePerAmount()+"</td>\n"
+			+	  "<td>"+getRefundPerAmount()+"</td>\n"
+			+	"</tr>\n";
+	}
+
 	/**
 	 * 
 	 *
@@ -128,6 +149,16 @@ public class Product
 		+ amountLeft + "pricePerUnit " + pricePerUnit + "amountPerUnit " + amountPerUnit + "refundPerUnit "
 		+ refundPerUnit + "refundPerCrate " + refundPerCrate + "amountPerCrate "
 		+ amountPerCrate + "categoryName " + categoryName);
+	}
+
+	public Money getRefundPerAmount()
+	{
+		return refundPerUnit.multiply(this.amount).add((crate)? refundPerCrate : new Money(0));
+	}
+
+	public Money getPricePerAmount()
+	{
+		return pricePerUnit.multiply(this.amount);
 	}
 
 	public Money getRefundPerCrate()

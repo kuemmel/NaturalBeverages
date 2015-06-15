@@ -12,8 +12,9 @@
 <div class="container  blue-grey lighten-5">
 	<div class="row">
 		<h3>Welcome!</h3>
+		Test
 	</div>
 </div>
-<jsp:include page="/modules/footer.html" />
+<jsp:include page="/modules/footer.jsp" />
 </BODY>
 </HTML>

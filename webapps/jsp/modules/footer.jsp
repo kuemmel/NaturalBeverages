@@ -1,8 +1,8 @@
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="modal1" class="modal bottom-sheet">
   <div class="modal-content">
     <h4>Cart</h4>
-    <p>A bunch of text</p>
+    <jsp:include page="cart.jsp" />
   </div>
   <div class="modal-footer">
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Abbort</a>

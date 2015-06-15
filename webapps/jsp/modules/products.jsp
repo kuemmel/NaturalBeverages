@@ -11,12 +11,13 @@
   <div class="col s12">
   	<ul class="tabs z-depth-2">
   	<!--<li class="tab col s3"><a class="active" href="#all">all</a></li>-->
-  	<%
+<%
   	/**
   	 * Show products by category in tabs.
   	 *
-  	 *
   	 **/
+    ArrayList<Product> products = new ArrayList<>();
+
   	SQLConnection sqlCategoryConnection = new SQLConnection(response.getWriter());
   	SQLConnection sqlProductsConnection = new SQLConnection(response.getWriter());
   	ResultSet categories = sqlCategoryConnection.selectAllFrom("categories");
@@ -35,17 +36,40 @@
 		out.println("<div id=\""+category+"\" class=\"col s12\"> <!-- TAB --------------------> \n");
 		while(productContentResultSet.next())
 		{
-			Product product = new Product(productContentResultSet);
+		  Product product = new Product(productContentResultSet);
+      products.add(product);
 			out.println(product.returnAsHtmlCard(request.getContextPath()));
 		}
   		out.println("</div>");
+      session.setAttribute("products",products);
 	}
-	//sqlCategoryConnection.closeConnection();
-	//sqlProductsConnection.closeConnection();
+	sqlCategoryConnection.closeConnection();
+	sqlProductsConnection.closeConnection();
+
+ /**
+  * add products to cart, if the user clicks the according links
+  **/
+  Cart cart = session.getParameter("cart");
+  if(cart == null)
+  {
+    Cart cart = new Cart(session.getParameter("userId"));
+  }
+
+  for(product : products)
+  {
+    String formName = product.getName()+product.getFirm());
+    if(request.getParameter(formName != null) // user clicked "add to cart" for this product
+    {
+      product.setAmount( Integer.parseInt(request.getParameter(formName+"Amount")) );
+      cart.add(product);
+    }
+  }
+  session.setParameter("cart",cart);
+
 
   	%>
 </div>
 </div>
-<jsp:include page="footer.html" />
+<jsp:include page="footer.jsp" />
 </BODY>
 </HTML>

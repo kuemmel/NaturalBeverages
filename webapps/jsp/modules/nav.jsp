@@ -14,7 +14,7 @@
   <li><a href="${pageContext.request.contextPath}/modules/search.jsp">Search</a></li>
   <li class="divider"></li>
   <li><a href="${pageContext.request.contextPath}/modules/register.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
-  <li><a href="${pageContext.request.contextPath}/modules/cart.jsp <%if(!loggedIn)out.println("hide");%>">Cart</a></li>
+  <li><a class="modal-trigger<%if(!loggedIn)out.println("hide");%>" href="#modal1">Cart</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp <%if(!loggedIn)out.println("hide");%>">UserSettings</a></li>
 </ul>
 <!--navbar for every site -->
@@ -51,4 +51,4 @@
 	</div>
 </div>
 </nav>
-<img class="responsive-img" src="${pageContext.request.contextPath}/images/bannerFlat3.png">
+<img class="responsive-img" src="${pageContext.request.contextPath}/images/bannerFlat3.png">Test
