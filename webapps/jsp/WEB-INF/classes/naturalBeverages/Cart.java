@@ -1,9 +1,9 @@
-package NaturalBeverages;
+package naturalBeverages;
 import java.util.ArrayList;
 
 public class Cart 
 {
-	private string userId;
+	private String userId;
 	private ArrayList<Product> products;
 
 	public Cart(String userId)

@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<footer class="page-footer #a1887f brown darken-1">
+<footer class="page-footer #a1887f brown darken-2">
   <div class="container">
     <div class="row">
       <div class="col l6 s12">

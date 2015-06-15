@@ -1,12 +1,30 @@
 
 /**
- * submit the loginForm on pressing enter.
+ * Initialize modals(e.g the cart)
  **/
-$(function() {
-    $('form').each(function() {
-        $(this).find('input').keypress(function(e) {
+$(document).ready(function()
+{
+	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+	$('.modal-trigger').leanModal();
+	$("[type=range]").change(function()
+ 	{
+    	var amount=$(this).val()*document.getElementById("priceSpan").placeholder;
+    	$("#priceSpan").text(amount);
+  	});
+});
+
+/**
+ * submit the loginForm on pressing enter. --> copy pasted
+ **/
+$(function()
+{
+    $('form').each(function()
+    {
+        $(this).find('input').keypress(function(e)
+        {
             // Enter pressed?
-            if(e.which == 10 || e.which == 13) {
+            if(e.which == 10 || e.which == 13)
+            {
                 this.form.submit();
             }
         });

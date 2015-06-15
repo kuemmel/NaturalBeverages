@@ -2,7 +2,12 @@
 <%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
 
 <%
-  Cart cart = session.getParameter("cart");
-  assert cart;
-  out.println(cart.returnAsHtmlTable());
+  Cart cart = (Cart) session.getAttribute("cart");
+  if(cart != null)
+  {
+  	out.println(cart.returnAsHtmlTable());
+  } else
+  {
+  	out.println("<b> No products added yet</b>");
+  }
 %>

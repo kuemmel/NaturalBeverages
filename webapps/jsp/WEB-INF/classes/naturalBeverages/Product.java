@@ -101,22 +101,21 @@ public class Product
 		  +"            <tr><td>Refund:</td><td>"+refundPerUnit.toString()+"</td></tr>\n"
 		  +"            <tr><td>Crate:</td><td>"+getPricePerCrate().toString()+"("+amountPerCrate+")</td></tr>\n"
 		  +"            <tr><td>Refund per crate:</td><td>"+getRefundPerCrate().toString()+"</td></tr>\n"
+		  +"			<tr><td>current price:</td><td><span name=\"priceSpan\">"+getPricePerUnit().toString()+"</td></tr>\n"
 		  +"          </table>\n"
 		  +"        </div>\n"
 		  +"      </div>\n"
 		  +"      <div class=\"row\">\n"
 		  +"        <div class=\"card-action\" >\n"
-		  +"          <form action=\"\" name=\""+name+firm+"Form\" method=\"GET\">\n"
+		  +"          <form action=\"\" name=\"form\" method=\"GET\">\n"
 		  +"            <div class=\"col\" style=\"width:30%;\">\n"
-		  +"                <p>\n"
-		  +"                  <button class=\"btn waves-effect waves-light col\" name=\""+name+firm+"\" type=\"submit\">Add to cart\n"
-		  +"                </p>\n"
+		  +"                  <button class=\"btn waves-effect waves-light col\" name=\""+"button"+"\" type=\"submit\">Add to cart\n"
 		  +"               <i class=\"mdi-content-send right\"></i>\n"
 		  +"              </button>\n"
 		  +"            </div>\n"
 		  +"            <div class=\"col\" style=\"width:70%;\">\n"
 		  +"              <p class=\"range-field\">\n"
-		  +"                <input type=\"range\" name =\""+name+firm+"Amount\" value=\"0\" class=\"col\" id=\"test5\" min=\"1\" max=\""+amountLeft+"\" style=\"width:100%;\" /> <!--style=\"overflow:hidden\";-->\n"
+		  +"                <input type=\"range\" name =\"amount\" value=\"0\" class=\"col\" min=\"1\" max=\""+amountLeft+"\" style=\"width:100%;\" /> <!--style=\"overflow:hidden\";-->\n"
 		  +"              </p>\n"
 		  +"            </div>\n"
 		  +"          </form>\n"
@@ -129,7 +128,7 @@ public class Product
 		return card;
 	}
 
-	private String isInStock()
+	public String isInStock()
 	{
 		if(amountLeft <= amountPerCrate)
 		{

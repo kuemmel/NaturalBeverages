@@ -14,11 +14,11 @@
   <li><a href="${pageContext.request.contextPath}/modules/search.jsp">Search</a></li>
   <li class="divider"></li>
   <li><a href="${pageContext.request.contextPath}/modules/register.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
-  <li><a class="modal-trigger<%if(!loggedIn)out.println("hide");%>" href="#modal1">Cart</a></li>
+  <li><a class="modal-trigger <%if(!loggedIn)out.println("hide");%>" href="#modal1">Cart</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp <%if(!loggedIn)out.println("hide");%>">UserSettings</a></li>
 </ul>
 <!--navbar for every site -->
-<nav class="brown darken-3 z-depth-2">
+<nav class="blue-grey darken-4 z-depth-3">
 	<div class="nav-wrapper">
     <div class="row">
   		<div class="col">
@@ -51,4 +51,4 @@
 	</div>
 </div>
 </nav>
-<img class="responsive-img" src="${pageContext.request.contextPath}/images/bannerFlat3.png">Test
+<img class="responsive-img z-depth-2" src="${pageContext.request.contextPath}/images/bannerFlatFlat.png" />

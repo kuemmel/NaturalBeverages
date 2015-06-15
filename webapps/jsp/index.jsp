@@ -4,16 +4,11 @@
 	request.setAttribute("pageTitle","Home");
 	request.setAttribute("scripts","utils.js");
 %>
-<!--head-->
 <jsp:include page="modules/siteHead.jsp" />
-<BODY class="blue-grey darken-4">
-<!-- navbar -->
+<BODY>
 <jsp:include page="modules/nav.jsp" />
-<div class="container  blue-grey lighten-5">
-	<div class="row">
-		<h3>Welcome!</h3>
-		Test
-	</div>
+<div class="container">
+	<p>Welcome!</p>
 </div>
 <jsp:include page="/modules/footer.jsp" />
 </BODY>

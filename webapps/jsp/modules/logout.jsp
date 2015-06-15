@@ -1,24 +1,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<HTML>
-<HEAD>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<TITLE>Registration Complete</TITLE>
-	<SCRIPT TYPE="text/javascript" language="JavaScript" src="scripts/js/utils.js" >
-	</SCRIPT>
-</HEAD>
+<%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
+<%
+	request.setAttribute("pageTitle","LoggedOut");
+	request.setAttribute("scripts","utils.js");
+%>
+<jsp:include page="siteHead.jsp" />
 <BODY>
-	 <a href="${pageContext.request.contextPath}/index.jsp">Home</a>
-	 <hr>
+<jsp:include page="nav.jsp" />
+<div class="container">
+	<a href="${pageContext.request.contextPath}/index.jsp">Home</a>
 	 <%
 	 	session.removeAttribute("userID");
 
 	 	if(session.getAttribute("userID") == null)
 	 	{
-	 		out.println("You are now logged out. See you soon.");
+	 		out.println("<p>You are now logged out. See you soon!</p>");
 		}
 	 %>
-	</form>
-	<hr>
+</div>
+<jsp:include page="footer.jsp" />
 </BODY>
 </HTML>
+	 
