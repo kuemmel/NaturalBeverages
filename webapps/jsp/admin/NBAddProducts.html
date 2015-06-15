@@ -1,0 +1,78 @@
+<html>   
+ <head>     
+  <title>          
+   NBAddProducts
+  </title>
+  <script type="text/javascript">
+
+function validate()
+{
+
+  var hash = {};
+  hash["name"] = document.forms["form"]["beverageName"].value;
+  hash["firm"] = document.forms["form"]["beverageFirm"].value;
+  hash["imagePath"] = document.forms["form"]["beverageImagePath"].value;
+  hash["amount"] = document.forms["form"]["beverageAmountLeft"].value;
+  hash["price"] = document.forms["form"]["beveragePricePerUnit"].value;
+  hash["containerName"] = document.forms["form"]["beverageContainerName"].value;
+  hash["category"] = document.forms["form"]["beverageCategoryName"].value;
+
+  for (var value in hash)
+  {
+    if (hash[value] == null || hash[value]=="")
+    {
+      window.alert(value+" must be set!");
+      return false;
+    }
+  }
+  if(!hash["price"].match(/^(\d{1,2}(\,\d{2}|\.\d{2}|))$/))
+  {
+    window.alert("price must be a value in currency.");
+    return false;
+  }
+  if(!hash["amount"].match(/^(\d+)$/))
+  {
+    window.alert("amount needs to be >0 and a value");
+    return false;
+  }
+
+}
+  </script>   
+ </head>   
+ <body bgcolor = "#FFFFCC">
+  <hr>
+  <a href="NBhome.html">back</a><br />
+  <hr>
+  <hr>
+  <table>
+    <form name="form" method="get" action="../servlet/NBAddProducts" onsubmit="return(validate());"> 
+     <title>Add Product</title>
+     </tr><tr>
+        <td>ProduktName:</td>
+        <td><input type=text name=beverageName><br /></td>
+     </tr><tr>
+        <td>Firma:</td>
+        <td><input type=text name=beverageFirm><br /></td>
+     </tr><tr>
+     </tr><tr>
+        <td>Link zum Bild:</td>
+        <td><input type=text name=beverageImagePath><br /></td>
+     </tr><tr>
+        <td>Anzahl Flaschen:</td>
+        <td><input type=text name=beverageAmountLeft><br /></td>
+     </tr><tr>
+        <td>Preis Pro Flasche:</td>
+        <td><input type=text name=beveragePricePerUnit><br /></td>
+     </tr><tr>
+        <td>Flasche:</td>
+        <td><input type=text name=beverageContainerName><br /></td>
+     </tr><tr>
+        <td>Kategorie:</td>
+        <td><input type=text name=beverageCategoryName><br /></td>
+      </tr>
+  </table>
+   <hr>        
+   <input type="submit" value="submit">
+  </form>   
+ </body> 
+</html> 

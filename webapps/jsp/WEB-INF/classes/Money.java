@@ -1,4 +1,3 @@
-package naturalBeverages;
 /**
  * Money in NaturalBeverages Project
  * represents math of currency.
@@ -29,16 +28,6 @@ public class Money
 	public Money add(Money value)
 	{
 		return new Money(this.value.add(value.getValue()));
-	}
-
-	public Money multiply(Money value)
-	{
-		return new Money(this.value.multiply(value.getValue()));
-	}
-
-	public Money multiply(int value)
-	{
-		return new Money(this.value.multiply(new BigDecimal(value)));
 	}
 	
 	public Money subtract(Money value)

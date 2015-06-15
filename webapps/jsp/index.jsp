@@ -11,8 +11,9 @@
 <jsp:include page="modules/nav.jsp" />
 <div class="container  blue-grey lighten-5">
 	<div class="row">
-		Welcome!
+		<h3>Welcome!</h3>
 	</div>
 </div>
+<jsp:include page="/modules/footer.html" />
 </BODY>
 </HTML>

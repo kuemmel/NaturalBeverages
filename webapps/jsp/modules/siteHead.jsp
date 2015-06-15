@@ -15,7 +15,6 @@
      *  request.setAttribute("scripts","register.jsp utils.js")
      *
      */
-
     String title = (String) request.getAttribute("pageTitle");
     String[] scripts = ((String) request.getAttribute("scripts")).split(" ");
     for(String script : scripts)

@@ -1,0 +1,3 @@
+Whiskey;Fiddlemore;/images/products/whiskey.jpg;10;20.00;0,7 Glasflasche;Whiskey
+Tolles Bier; Bierkellerei;/images/products/TollesBier.jpg;200;0.75;0,33 Bierflasche;Bier
+Pflaumenwein;Weinkellerei;/images/products/pflaumenwein.jpg;150;6.00;0,7 Glasflasche;Wein

@@ -10,15 +10,17 @@
   <TITLE>ProductCard</TITLE>
 </HEAD>
 <body>
+  <div class="container">
   <div class="row">
-    <div class="col s4 m4 l4">
-      <div class="card brown darken-3 white-text">
+    <div class="col s8 m8 l8">
+      <div class="card brown darken-3 z-depth-3 white-text">
         <div class="row">
           <div class="col">
             <div class="card-image row" style="margin-top:20px;">
-              <img src="images/product/beermug.jpg" style="max-height:250px;max-width:250px;">
+              <img src="images/products/TollesBier.jpg" style="max-height:250px;max-width:250px;">
             </div>
-            <span class="card-title" style="padding-left:10px;">Name</span> <!--style="background-color:blue;"-->
+            <span class="card-title" style="padding-left:10px;">Name(1L)</span> <!--style="background-color:blue;"-->
+            <div style="padding-left:20px;">category</div>
           </div>
           <div class="card-content col" ><!--style="background-color:red;"-->
           <table>
@@ -45,12 +47,26 @@
         </div>
         <div class="row">
           <div class="card-action" > <!--style="background-color:green;"-->
-            <a href="#">Buy</a>
+            <form action="" method="GET">
+              <div class="col" style="width:30%;">
+                  <p>
+                    <button class="btn waves-effect waves-light col" type="submit">Add to cart
+                  </p>
+                 <i class="mdi-content-send right"></i>
+                </button>
+              </div>
+              <div class="col" style="width:70%;">
+                <p class="range-field">
+                  <input type="range" class="col" id="test5" min="0" max="100" style="width:100%;" /> <!--style="overflow:hidden";-->
+                </p>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </body>
 
 <!--

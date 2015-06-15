@@ -34,10 +34,6 @@ public class SQLConnection
 	{
 		try
 		{
-			//if(passwd == null || userID == null)
-			//{
-			//	throw new RuntimeException("Credentials in NBAdmin missing.");
-			//}
 			this.loadDriver();
 			this.connection = DriverManager.getConnection(sqlServerLink, userID, passwd);
 			this.statement = this.connection.createStatement();
@@ -67,8 +63,6 @@ public class SQLConnection
 	{
 		try
 		{
-			//ResultSet resultSet = statement.executeQuery("select count(*) as count from "+table);
-			//return resultSet.getInt("count");
 			ResultSet resultSet = selectAllFrom(table);
 			return resultSet.last() ? resultSet.getRow() : 0; 
 		} catch(Exception e) 
@@ -79,6 +73,10 @@ public class SQLConnection
 
 	/**
 	 * Some selects to make life easier
+ 	 * 9.6.15: added more methods
+ 	 * @todo AND now sanitize the input
+ 	 * 	-> THIS IS NOT SAFE IN THE REAL WORLD
+	 *
 	 **/
 	public ResultSet selectAllFrom(String table) throws SQLException
 	{
@@ -90,15 +88,52 @@ public class SQLConnection
 		return statement.executeQuery("select * from "+table+" where "+field+" = "+value);
 	}
 
-	public ResultSet selectAllFromWhere2(String table, String field1, 
-		String value1, String field2, String value2) throws SQLException
+	public ResultSet selectAllFromWhereAnd(String table, String field, String value
+		, String field2, String value2) throws SQLException
 	{
-		return statement.executeQuery("select * from "+table+" where "+field1+" = "+value1+" and "+field2+" = "+value2);
+		return statement.executeQuery("select * from "+table+" where "
+			+field+" = "+value+" and "+field2+" = "+value2);
 	}
 
-	public selectXFromWhere(String table, String wanted, String field, String value) throws SQLException
+	public ResultSet selectXfromWhere(String table, String target, String field, String value) throws SQLException
+	{
+		return statement.executeQuery("select "+target+" from "+table+" where "+field+" = "+value);
+	}
+
+	public ResultSet selectXFromWhere(String table, String wanted, String field, String value) throws SQLException
 	{
 		return statement.executeQuery("select "+wanted+" from "+table+" where "+field+" = "+value);
+	}
+
+	/**
+	 * because this is a kind of long query
+	 * Do a left join on beverages with it's foreign keys.
+	 * natural join would not account for this, as it 
+	 * will swallow some rows where there are for example the same
+	 * containers (i.e two beers)
+	 * left join on beverages will output all the beverages! 
+	 **/
+	public ResultSet getProducts() throws SQLException
+	{
+		String query = "select beverages.name, firm, imagePath, amountLeft, priceperunit "
+		+", categories.name 'category', crates.amountPerCrate, crates.refund, containers.amountPerUnit "
+		+", containers.refund from beverages "
+		+"left join categories on (categories.name=beverages.categoryName) "
+		+"left join containers on (containers.name=beverages.containerName) "
+		+"left join crates on (crates.name = containers.crateName);";
+
+		return statement.executeQuery(query);
+	}
+
+	public ResultSet getProductsByCategory(String category) throws SQLException
+	{
+		String query = "select beverages.name, firm, imagePath, amountLeft, priceperunit, categories.name 'category', "
+		+"crates.amountPerCrate, crates.refund, containers.amountPerUnit,containers.refund from beverages "
+		+"left join categories on (categories.name = beverages.categoryName) "
+		+"left join containers on (containers.name = beverages.containerName) "
+		+"left join crates on (crates.name = containers.crateName) where categories.name = \""+category+"\";";
+
+		return statement.executeQuery(query);
 	}
 
 	/**
