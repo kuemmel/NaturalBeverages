@@ -1,4 +1,3 @@
-
 /**
  * Initialize modals(e.g the cart)
  **/
@@ -32,6 +31,29 @@ $(function()
         $(this).find('input[type=submit]').hide();
     });
 });
+
+/**
+ * Initialize dropdown
+ **/
+$('.dropdown-button').dropdown(
+{
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false // Displays dropdown below the button
+});
+
+/**
+ * Initialize tabs
+ **/
+$(document).ready(function()
+{
+	$('ul.tabs').tabs();
+});
+        
+
 /**
  * Delete and re-insert default values into fields
  * also change form type to password in the password field

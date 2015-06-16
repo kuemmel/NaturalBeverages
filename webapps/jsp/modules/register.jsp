@@ -11,7 +11,7 @@
 <jsp:include page="nav.jsp" />
 <div class="container  blue-grey lighten-5">
 	 <div class="row">
-    <form class="col s12" id="form" method="post" name="form" action="modules/registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
+    <form class="col s12" id="form" method="post" name="form" action="registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
       <div class="row">
         <div class="input-field col s6">
           <input id="name" name="name" type="text" class="validate">

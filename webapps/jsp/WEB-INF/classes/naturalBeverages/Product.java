@@ -84,7 +84,7 @@ public class Product
 		 String card = 
 		   "<div class=\"row\">\n"
 		  +"  <div class=\"col s8 m8 l8\">\n" 
-		  +"    <div class=\"card brown darken-3 z-depth-3 white-text\">\n"
+		  +"    <div class=\"card .mainColor z-depth-3 white-text\">\n"
 		  +"      <div class=\"row\">\n"
 		  +"        <div class=\"col\">\n"
 		  +"          <div class=\"card-image row\" style=\"margin-top:20px;\">\n"

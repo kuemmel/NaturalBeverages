@@ -1,9 +1,78 @@
 a:hover, a:active
 {
-	color: #648572;
+  color: #648572;
 }
 
-body {
-	color: #fff;
-	background-color: #13242B;
+body
+{
+  /*color: #fff;*/
+  background-color: #13242B;
+  /*kep the footer down*/
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/*keep the footer down*/
+main
+{
+  flex: 1 0 auto;
+}
+
+.mainColor
+{
+  background-color:#594E42;
+}
+
+/* overwrite tab properties*/
+.tabs
+{
+  position: relative;
+  height: 48px;
+  background-color: #4e342e;/* bar background #fff;*/
+  margin: 0 auto;
+  width: 100%;
+  white-space: nowrap;
+}
+  .tabs .tab
+  {
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 20px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    width: 15%;
+  }
+    .tabs .tab a
+    {
+      color: #cfd8dc; /*#ee6e73; text*/
+      display: block;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: color .28s ease;
+      -moz-transition: color .28s ease;
+      -o-transition: color .28s ease;
+      -ms-transition: color .28s ease;
+      transition: color .28s ease;
+    }
+      .tabs .tab a:hover
+      {
+        color: #fff; /*#f9c9cb; hover text*/
+      }
+  .tabs .indicator
+  {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #516C5A;/*#f6b2b5; active element*/
+    will-change: left, right;
+  }
+
+.tabs .tab
+{
+  padding: 0;
 }
