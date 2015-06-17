@@ -34,28 +34,28 @@
     while(categories.next())
     {
       String category = categories.getString("name");
-    ResultSet productContentResultSet = sqlProductsConnection.getProductsByCategory(category);
-    out.println("<div id=\""+category+"\" class=\"col s12 waves-green\"> <!-- TAB -------------------->");
-    out.println("<ul id=\"list"+product.getCategoryName()+">");
-    while(productContentResultSet.next())
-    {
-      Product product = new Product(productContentResultSet);
-      /*
-        not easy to read, but easier on the buffer.
-        refer to product.java::returnAsHtmlCard() for a more object oriented, but even less elegant solution,
-        which is a lot of overhead on the buffer (but way better to read and more refactor friendly(?)).
-      */
+      ResultSet productContentResultSet = sqlProductsConnection.getProductsByCategory(category);
+      out.println("<div id=\""+category+"\" class=\"col s12 waves-green\"> <!-- TAB -------------------->");
+      out.println("<ul id=\"list"+category+"\" class=\"containerColor collection \">");
+      while(productContentResultSet.next())
+      {
+        Product product = new Product(productContentResultSet);
+        /*
+          not easy to read, but easier on the buffer.
+          refer to product.java::returnAsHtmlCard() for a more object oriented, but even less elegant solution,
+          which is a lot of overhead on the buffer (but way better to read and more refactor friendly(?)).
+        */
 %>
-  <li>
+  <li class="collection-item containerColor">
   <div class="row">
-    <div class="col s8 m8 l8">
-      <div class="card brown darken-3 z-depth-3 white-text">
+    <!--<div class="col">-->
+      <div class="card mainColor z-depth-3 ">
         <div class="row">
           <div class="col">
             <div class="card-image row" style="margin-top:20px;">
               <img src="<%=request.getContextPath()+product.getImagePath()%>" style="max-height:250px;max-width:250px;padding-left:10px;">
             </div>
-            <span class="card-title" style="padding-left:20px;"><%=product.getName()%>(<%=product.getAmountPerUnit()%>L)</span>
+            <span class="card-title black-text" style="padding-left:20px;"><%=product.getName()%>(<%=product.getAmountPerUnit()%>L)</span>
               <div style="padding-left:20px;"><%=product.getCategoryName()%></div>
           </div>
           <div class="card-content col" >
@@ -87,12 +87,12 @@
           </div>
         </div>
       </div>
-    </div>
+    <!--</div>-->
   </div>
 </li>
 <%
     }
-    out.println("</div> \n </ul>");
+    out.println("  </ul> \n </div>");
   }
 %>
 

@@ -18,7 +18,7 @@
   <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp <%if(!loggedIn)out.println("hide");%>">UserSettings</a></li>
 </ul>
 <!--navbar for every site -->
-<nav class="blue-grey darken-4 z-depth-3">
+<nav class="nav_over z-depth-3">
 	<div class="nav-wrapper">
     <div class="row">
   		<div class="col">

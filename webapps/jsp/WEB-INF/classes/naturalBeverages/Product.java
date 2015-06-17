@@ -18,6 +18,7 @@ public class Product
 	private Money  refundPerCrate;
 	private int    amountPerCrate;
 	private String categoryName;
+
 	// the amount of products to be bought
 	private int amount;
 	// if bought as crates
