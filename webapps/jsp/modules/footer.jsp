@@ -6,12 +6,12 @@
   </div>
   <div class="modal-footer">
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Abbort</a>
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Clear cart</a>
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="clearCart()">Clear cart</a>
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Buy</a>
   </div>
 </div>
 
-<footer class="page-footer #a1887f brown darken-2">
+<footer class="page-footer sticky">
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
@@ -25,6 +25,7 @@
           <li><a class="grey-text text-lighten-3" href="https://www.mysql.de/">MySQL</a></li>
           <li><a class="grey-text text-lighten-3" href="http://www.oracle.com/technetwork/java/javaee/jsp/index.html">JSP</a></li>
           <li><a class="grey-text text-lighten-3" href="https://jquery.com/">JQUERY</a></li>
+          <li><a class="grey-text text-lighten-3" href="https://github.com/kuemmel/naturalBeverages">Source on github</a></li>
         </ul>
       </div>
     </div>

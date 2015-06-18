@@ -6,17 +6,15 @@
   request.setAttribute("scripts","utils.js");
 %>
 <jsp:include page="siteHead.jsp" />
-<BODY class="blue-grey darken-4">
+<BODY>
 <jsp:include page="nav.jsp" />
-<div class="container">
-<div class="row">
-  <div class="col s12 m12 l12">
     <ul class="tabs z-depth-2 waves-green">
 <%
     /**
+     * 
+     **/
+    /**
      * Show products by category in tabs.
-     * get products from session to add to 
-     *
      **/
     ArrayList<Product> products = new ArrayList<Product>();
 
@@ -30,13 +28,13 @@
     }
     out.println("    </ul>\n  </div>");
     categories.beforeFirst();
-
+    out.println("<div class=\"container\">");
     while(categories.next())
     {
       String category = categories.getString("name");
       ResultSet productContentResultSet = sqlProductsConnection.getProductsByCategory(category);
       out.println("<div id=\""+category+"\" class=\"col s12 waves-green\"> <!-- TAB -------------------->");
-      out.println("<ul id=\"list"+category+"\" class=\"containerColor collection \">");
+      out.println("<ul id=\"list"+category+"\" class=\"collection \">");
       while(productContentResultSet.next())
       {
         Product product = new Product(productContentResultSet);
@@ -72,15 +70,18 @@
         </div>
         <div class="row">
           <div class="card-action" >
-            <form action="" name="form" method="GET">
+            <form action="" id="form:<%=product.getFirm()+":"+product.getName()%>" value="set" method="GET">
               <div class="col" style="width:30%;">
-                    <button class="btn waves-effect waves-light col" name=""+"button"+"" type="submit">Add to cart
-                 <i class="mdi-content-send right"></i>
+                <a class="waves-effect waves-light btn green darken-1" type="submit" name="action" onclick="submitProductForm(&quot;form:<%=product.getFirm()+":"+product.getName()%>&quot;)">Add to cart</a>
                 </button>
               </div>
               <div class="col" style="width:70%;">
-                <p class="range-field">
-                  <input type="range" name ="amount" value="0" class="col" min="1" max="<%=product.getAmountLeft()%>" style="width:100%;" /> <!--style="overflow:hidden";-->
+                <p class="range-field"> 
+                  <input type="range" name ="amount" value="1" class="col" min="0" max="<%=product.getAmountLeft()%>" style="width:100%;" />
+                  <input type="hidden" name="name" value="<%=product.getName().toString()%>">
+                  <input type="hidden" name="firm" value="<%=product.getFirm().toString()%>">
+                  <input type="hidden" name="price" value="<%=product.getPricePerUnit().toString()%>">
+                  <input type="hidden" name="refund" value="<%=product.getRefundPerUnit().toString()%>">
                 </p>
               </div>
             </form>
@@ -95,9 +96,6 @@
     out.println("  </ul> \n </div>");
   }
 %>
-
-  </div>
-</div>
 </div>
 <jsp:include page="footer.jsp" />
 </BODY>

@@ -70,15 +70,13 @@ create table beverages (
 	, constraint foreign key (containerName) references dz39.containers(name) on update restrict on delete cascade
 	) engine = INNODB;
 
-
-
 create table orders (
 	  id mediumint not null unique auto_increment
-	, email varchar(64)
+	, userId mediumint
 	, dateOfOrder timestamp default current_timestamp on update current_timestamp
 	, service boolean
 	, primary key (email,dateOfOrder)
-	, constraint foreign key (email) references dz39.users(email) on update restrict on delete cascade
+	, constraint foreign key (userId) references dz39.users(id) on update restrict on delete cascade
 	) engine = INNODB;
 
 create table boughtgoods (
@@ -94,3 +92,8 @@ create table boughtgoods (
 ##
 # insert static values
 ##
+
+load data infile "categories.txt" into table categories fields terminated by ';' lines terminated by '\n';
+load data infile "crates.txt" into table crates fields terminated by ';' lines terminated by '\n';
+load data infile "containers.txt" into table containers fields terminated by ';' lines terminated by '\n';
+load data infile "beverages.txt" into table beverages fields terminated by ';' lines terminated by '\n';

@@ -97,11 +97,23 @@ Ein Entwicklertagebuch zum RDB Projekt \\ [1cm]
 \newpage
 %fragestellung, Einleitung, Relevanz
 \section{Einleitung - Konzept}
-Natural Beverages ist ein Webshop der sich auf "natürliche" Getränke spezialisiert. Also Getränke aus Früchten, Getreide und anderen Rohstoffen. \\ 
+Natural Beverages ist ein Webshop der sich auf \grqq natürliche\grqq  Getränke spezialisiert. Also Getränke aus Früchten, Getreide und anderen Rohstoffen. \\ 
 
-Bio, FairTrade, lokale Ernährung sind aktuelle Stichworte und gerade zu Zeiten von Energy Drinks und Coca Cola hat sich eine Gruppe gefunden, die auf "natürliche" Produkte besteht. In diesem Sinne stellt "Natural Beverages" die Möglichkeit da auch lokale Sorten und Getränke zu kaufen. Hauptkategorien stellen Bier, Wein, Tees und Säfte.
+Bio, FairTrade, lokale Ernährung sind aktuelle Stichworte und gerade zu Zeiten von Energy Drinks und Coca Cola hat sich eine Gruppe gefunden, die auf \grqq natürliche\grqq  Produkte besteht. In diesem Sinne stellt \grqq Natural Beverages\grqq  die Möglichkeit da auch lokale Sorten und Getränke zu kaufen. Hauptkategorien stellen Bier, Wein, Tees und Säfte.
 
 Die Zielgruppe liegt als vor allem bei Jugendlichen, Mitte bis Ende 20, die sich sehr gut mit mobiler Technologie auskennen.
+\section{Anleitung und Benutzung}
+\begin{itemize}
+\item \emph{Entweder} \grqq admin/databaseScript.sql\grqq \ in mysql mit dem Befehl \ \grqq source \grqq \ ausführen
+\item \emph{oder} Servlets in \grqq public\_html/WEB-INF/classes/\grqq \ compilieren und mit \\ \grqq /localhost/admin/NBCreate.html\grqq \ ausführen.
+\item Ab hier lässt sich die Website (localhost:8080/) benutzen.
+\item Oben rechts auf den Menüschalter, auf \grqq Sign Up\grqq  und dann Daten eingeben.
+\item links neben dem Menü lassen sich Email und Passwort zum Registrieren eingeben.
+\item Nun können die Daten geändert oder unter Menü->Products Produkte zum Warenkorb hinzugefügt werden.
+\item Der Warenkorb wird ebenfalls im Menü->Cart geöffnet und kann hier bestätigt/ zurückgesetzt/ angeschaut werden.
+\item nach erfolgreicher Bestellung lässt sich diese unter Menü->Settings einsehen.
+\item Mit dem Ausloggen mittels des Schalters links neben den Einstellungen (oder via Menü) ist das Programm komplett.
+\end{itemize}
 \section{Webseiten Design}
 
 \subsection{Design}
@@ -115,22 +127,31 @@ Ein dunkler Hintergrund hebt die hellen, freien Inhalte hervor.
 \section{Programmtechnisches Design}
 
 \subsection{Datenbank}
-\includegraphics{databaseDesign.1}
-Bei der Datenbank wurde stark auf den Verzicht von Id's geachtet. Id's machten letztendlich nur bei den Orders, sowie den Usern Sinn da, ein User am Tag mehrmals das gleiche bestellen kann und Date für einen Primary Key etwas unhandlich ist. Außerdem könnte sich die Email eines Users ändern. \\
+\includegraphics[width=\textwidth]{databaseDiagram.PNG}
+Bei der Datenbank wurde auf den Verzicht von Id's geachtet. Id's machten letztendlich nur bei den Orders, sowie den Users Sinn da, ein User am Tag mehrmals das gleiche bestellen kann und Date für einen Primary Key etwas unhandlich ist. Außerdem könnte sich die Email eines Users ändern. \\
 Im Grunde teilt sich die Datenbank in drei Teile auf. Orders und Boughtgoods vereinigen dabei alle anderen: eine Bestellung eines Users enthällt gekaufte Produkte mit Anzahl und Preis welche wiederum auf das Produkt zugreifen. Produkt, Category, Crate und Container beschreiben damit das Produkt insgesamt mit allen Anteilen. \\
 Es lässt sich darüber streiten ob ein solche Datenbankkonstrukt in der reellen Welt einsatzbereit ist. Sobald eine Kategorie umbenannt werden soll entsteht ein riesiger Schaden, da das nicht einfach so geschehen kann, ohne das Informationen verloren gehen können. Mit einer id als Primary Key wäre dies jedoch ohne weiteres möglich.
 
 \subsection{Authentication und User Management}
-Ein LogIn geschieht über einen Abruf und Abgleich der Datenbank. Das eingegebene Passwort wird in md5 gehasht und anschließen mit dem Datenbankeintrag (ebenfalls md5) abgeglichen. Vermutlich würde man in der reellen Welt eine bessere Hashingmethode verwenden. Beim erfolgreichen Einloggen wird der Session eine Variable("nick") gesetzt. \\
+Ein LogIn geschieht über einen Abruf und Abgleich der Datenbank. Das eingegebene Passwort wird in md5 gehasht und anschließen mit dem Datenbankeintrag (ebenfalls md5) abgeglichen.
+Vermutlich würde man in der reellen Welt eine bessere Hashingmethode verwenden. Beim erfolgreichen Einloggen wird der Session eine Variable("id") gesetzt. \\
 Ausloggen ist einfach nur das Entfernen dieser Variable.\\
-Die Ursprüngliche Idee war einen Filter(siehe /WEB-INF/NaturalBeverages/SessionFilter.java) zu benutzen. Sofern die SessionVariable "nick" (die beim einloggen gesetzt wurde) nicht null beträgt, wird der Client auf die angeforderte Seite weiter- oder ansonsten auf eine Fehlerseite geführt. Problem daran ist, dass auf dem Produktionsserver (praxi) Annotations nicht funktionieren und die web.xml auch nicht anfassbar war. \\
+Die Ursprüngliche Idee war einen Filter(siehe /WEB-INF/NaturalBeverages/SessionFilter.java) zu benutzen. Sofern die SessionVariable \grqq nick\grqq \ (die beim einloggen gesetzt wurde) nicht null beträgt, wird der Client auf die angeforderte Seite weiter- oder ansonsten auf eine Fehlerseite geführt. Problem daran ist, dass auf dem Produktionsserver (praxi) Annotations nicht funktionieren und die web.xml auch nicht anfassbar war, da diese nur bei einem Serverneustart neu eingelesen wurde. \\
 Somit dient eine einfache Abfrage über jeder entsprechenden Seite zur Kontrolle der Authentikation.  
 
 \subsection{Admin Tool}
-Das "Admin Tool" ist ein auf Servlets basierendes Webtool mit dem sich Produkt Einträge aus der Datenbank hinzufügen und löschen lassen. Die Admintools werden durch den Zugriff auf /admin erreicht. 
+Das \grqq Admin Tool\grqq  ist ein auf Servlets basierendes Webtool mit dem sich Produkt Einträge aus der Datenbank hinzufügen und löschen lassen. Die Admintools werden durch den Zugriff auf /admin erreicht. 
 
+\section{Reflektion und Fazit}
+Die Seite hat noch einige Baustellen. Zu den Produkten ließe sich eine allgemeine Übersicht, eine Suche hinzufügen. Die Adminverwaltung hätte besser ausfallen können (Listen auswählen, statt Text suchen). Es fehlt an gutem Design.\\
+
+Außerdem ist das System der Anbindung nicht ganz durchdacht: Product.java dient nur als Halter für ein Produkt, zum Speichern des Warenkorbs wird dieses nochmal neu erstellt. Sinvoller wäre es gewesen mit einer jsp Seite eine Klasse Products.java auszugeben, die die Produkte abgespeichert hat. \\
+
+Die Arbeit mit den Servlets ist recht umständlich und selbst JSP Seiten kommen nicht an die Bequemlichkeit von Sinatra/Ruby On Rails Applications heran. \\
+Da durchgängig Probleme mit dem VPN, sowie Praxi(jsp Seiten wurden ständig gecached), gestaltete sich die Arbeit teilweise als Problematisch. Auf dem eigenem Netzwerk war die 
+Arbeit aber durchaus sehr interessant. 
 \section{User Stories}
-\begin{enumerate}
+\begin{itemize}
 	\item As a client I want to browse the baverages of the shop
 	\item As an older person I want the delivery service to carry my items into my apartment
 	\item As a client I want to get a bill at the end of the order with the given address
@@ -140,5 +161,5 @@ Das "Admin Tool" ist ein auf Servlets basierendes Webtool mit dem sich Produkt E
 	\item As a client I want to be able to find the beverages I am looking for
 	\item As a client I want to be able to view a help page
 	\item I want to have the comfort of a user account to store previous orders
-	\end{enumerate}
+	\end{itemize}
 \end{document}
