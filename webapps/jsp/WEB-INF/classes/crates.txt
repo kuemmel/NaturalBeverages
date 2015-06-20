@@ -6,4 +6,5 @@
 0,33 SixPack;6;0
 0,5 SixPack;6;0
 0,7 SixPack;6;0
-1 SixPack;6
+1 SixPack;6;0
+Paket;8;0

@@ -31,22 +31,26 @@
     out.println("<div class=\"container\">");
     while(categories.next())
     {
-      String category = categories.getString("name");
-      ResultSet productContentResultSet = sqlProductsConnection.getProductsByCategory(category);
-      out.println("<div id=\""+category+"\" class=\"col s12 waves-green\"> <!-- TAB -------------------->");
-      out.println("<ul id=\"list"+category+"\" class=\"collection \">");
-      while(productContentResultSet.next())
-      {
-        Product product = new Product(productContentResultSet);
-        /*
-          not easy to read, but easier on the buffer.
-          refer to product.java::returnAsHtmlCard() for a more object oriented, but even less elegant solution,
-          which is a lot of overhead on the buffer (but way better to read and more refactor friendly(?)).
-        */
+      try {
+        String category = categories.getString("name");
+        ResultSet productContentResultSet = sqlProductsConnection.getProductsByCategory(category);
+        productContentResultSet.last();
+        out.println("<div id=\""+category+"\" class=\"col s12 waves-green\"> <!---TAB-"+category+"-"+productContentResultSet.getRow()+"------------------->");
+        out.println("<ul id=\"list"+category+"\" class=\" \">");
+
+        productContentResultSet.beforeFirst();
+        while(productContentResultSet.next())
+        {
+          Product product = new Product(productContentResultSet);
+          out.println("    <!-----------------------------product: "+product.getClass()+"-->");
+          /*
+            not easy to read, but easier on the buffer.
+            refer to product.java::returnAsHtmlCard() for a more object oriented, but even less elegant solution,
+            which is a lot of overhead on the buffer (but way better to read and more refactor friendly(?)).
+          */
 %>
-  <li class="collection-item containerColor">
-  <div class="row">
-    <!--<div class="col">-->
+  <li class="collection-item">
+    <div class="row">   
       <div class="card mainColor z-depth-3 ">
         <div class="row">
           <div class="col">
@@ -88,13 +92,16 @@
           </div>
         </div>
       </div>
-    <!--</div>-->
-  </div>
-</li>
+    </div>
+  </li>
 <%
+        }
+      } catch(Exception e)
+      {
+        out.println("<h5>error Products not found: "+e+" "+e.getCause()+"</h5>");
+      }
+      out.println("  </ul> \n</div>");
     }
-    out.println("  </ul> \n </div>");
-  }
 %>
 </div>
 <jsp:include page="footer.jsp" />

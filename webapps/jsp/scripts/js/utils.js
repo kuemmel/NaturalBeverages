@@ -8,9 +8,28 @@ $(document).ready(function()
 	$('.modal-trigger').leanModal();
 	$("[type=range]").change(function()
  	{
-    	var amount=$(this).val()*document.getElementById("priceSpan").placeholder;
-    	$("#priceSpan").text(amount);
-  	});
+    var amount=$(this).val()*document.getElementById("priceSpan").placeholder;
+    $("#priceSpan").text(amount);
+  });
+  /**
+   * Initialize dropdown
+   **/
+  $('.dropdown-button').dropdown(
+  {
+        inDuration: 300,
+        outDuration: 225,
+        constrain_width: false, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true // Displays dropdown below the button
+  });
+  /**
+   * Initialize tabs
+   **/
+  $(document).ready(function()
+  {
+    $('ul.tabs').tabs();
+  });
 });
 
 /**
@@ -33,26 +52,9 @@ $(function()
     });
 });
 
-/**
- * Initialize dropdown
- **/
-$('.dropdown-button').dropdown(
-{
-      inDuration: 300,
-      outDuration: 225,
-      constrain_width: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 0, // Spacing from edge
-      belowOrigin: false // Displays dropdown below the button
-});
 
-/**
- * Initialize tabs
- **/
-$(document).ready(function()
-{
-	$('ul.tabs').tabs();
-});
+
+
 
 /**
  * Cart functions
@@ -60,15 +62,21 @@ $(document).ready(function()
 
 function submitProductForm(formName)
 {
-  Materialize.toast('Added to Cart! <a class=\"btn white-text\" onclick=\"revertAdd(&quot;'+formName+'&quot;)\">revert</a>', 3000,'',addToCart(formName));
+  Materialize.toast('Added to Cart! <a class=\"btn white-text\" onclick=\"revertAdd(&quot;'+formName+'&quot;)\">revert</a>', 4000,'',addToCart(formName));
 }
 
+/**
+ * Does not work right now, gets called too soon
+ **/
 function revertAdd(formName)
 {
   var form = document.getElementById(formName);
   form["amount"].value = 0;
 }
 
+/**
+ * Add the current product to the cart
+ **/
 function addToCart(formName)
 {
   var form = document.getElementById(formName);
@@ -94,7 +102,45 @@ function addToCart(formName)
     return
   }
 }
-  
+
+/**
+ * submit cart as a requestparameter for the jsp program and clear the cart
+ **/
+function submitCart()
+{
+  //load cart
+  var cart = localStorage.getItem("cart");
+  if (cart === null)
+  {
+    var cartDiv = document.getElementById("cartDiv");
+    cartDiv.innerHTML += "<p><h5>It's no use to submit an empty cart!</h5></p>\n";
+    return false;
+  }
+  cart = JSON.parse(cart);
+  //make a form to submit elements to
+  var form = document.createElement("form");
+  form.setAttribute("method","post");
+  form.setAttribute("action","${pageContext.request.contextPath}/modules/cart.jsp");
+
+  for(var key in cart)
+  {
+    product = cart[key];
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type","hidden");
+    hiddenField.setAttribute("name","key"+product["name"]+product["firm"]);
+    hiddenField.setAttribute("value",product["amount"]);
+    
+    form.appendChild(hiddneField);
+  }
+
+  clearCart();
+  document.body.appendChild(form);
+  form.submit();
+}
+ 
+ /**
+  * clear the current cart
+  **/ 
 function clearCart()
 {
   localStorage.setItem("cart","");
@@ -102,14 +148,16 @@ function clearCart()
 }
 
 /**
- *refresh the cart
+ *refresh the cart into the cartDiv <div> in the footer.jsp
  **/
 function setCart()
 {
   var cart = localStorage.getItem("cart");
   if (cart === null)
   {
+    var cartDiv = document.getElementById("cartDiv");
     cartDiv.innerHTML = "There ain't no wares yet.";
+    return false;
   }
   cart = JSON.parse(cart);
   var totalPrice = 0;

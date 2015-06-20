@@ -2,16 +2,16 @@
 <div id="modal1" class="modal bottom-sheet">
   <div class="modal-content">
     <h4>Cart</h4>
-    <jsp:include page="cart.jsp" />
+    <div id="cartDiv"></div>
   </div>
   <div class="modal-footer">
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Abbort</a>
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="clearCart()">Clear cart</a>
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Buy</a>
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="submitCart()">Buy</a>
   </div>
 </div>
 
-<footer class="page-footer sticky">
+<footer class="page-footer">
   <div class="container">
     <div class="row">
       <div class="col l6 s12">

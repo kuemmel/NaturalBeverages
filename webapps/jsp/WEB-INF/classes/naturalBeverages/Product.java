@@ -53,11 +53,12 @@ public class Product
 			amountPerCrate 	= resultSet.getInt("amountPerCrate");
 			refundPerCrate 	= new Money(resultSet.getString("crates.refund"));
 			categoryName 	= resultSet.getString("category");
-		} catch(SQLException e)
+		} catch(Exception e)
 		{
+			String stackTrace = e.getStackTrace().toString();
 			StackTraceElement ste = new Exception().getStackTrace()[0];
 			String line = ste.getClassName() +" "+ String.valueOf(ste.getLineNumber());
-			throw new RuntimeException("ResultSet empty trying to get products: "+e+" "+line);
+			throw new RuntimeException("ResultSet empty trying to get products: "+e+" "+" "+stackTrace+" "+line);
 		}
 	}
 

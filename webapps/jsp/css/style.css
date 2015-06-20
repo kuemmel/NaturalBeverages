@@ -1,3 +1,6 @@
+/**
+ * change the color by hovering over the nav
+ **/
 a:hover, a:active
 {
   color: #648572;
@@ -13,7 +16,7 @@ body
   flex-direction: column;
 }
 
-/*keep the footer down*/
+/*keep the footer down @todo make it work*/
 main
 {
   flex: 1 0 auto;
@@ -29,19 +32,12 @@ main
   background-color: #fff; /*#eceff1;*/
 }
 
-.containerColor
-{
-  background-color: #13242B;
-  color: #0000;
-  
-}
-
 footer.page-footer
 {
   background-color: #594E42;
 }
 
-/* overwrite tab properties*/
+/* overwrite tab properties, change colors, height*/
 .tabs
 {
   position: relative;
@@ -93,6 +89,10 @@ footer.page-footer
 {
   padding: 0;
 }
+
+/**
+ * change color of range to green, add some different paddings
+ **/
 
 .range-field {
   position: relative; }
@@ -230,3 +230,12 @@ input[type=range]:focus::-ms-fill-lower {
 
 input[type=range]:focus::-ms-fill-upper {
   background: #ccc; }
+
+/**
+ * Make the products-collection background see-through
+ **/
+
+.productsCollection
+{
+  background-color: rgba(255, 0, 0, 0);
+}

@@ -8,7 +8,7 @@
   }
 %>
 <!-- Dropdown Structure -->
-<ul id="siteNavigationDropdown" class="dropdown-content s3 m5 l5">
+<ul id="siteNavigationDropdown" class="dropdown-content s5 m5 l5">
   <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/products.jsp">Products</a></li>
   <li class="divider"></li>
@@ -46,9 +46,9 @@
             <i class="mdi-action-list right"></i>
           </a>
         </li>
-		  </ul>
+      </ul>
+      </div>
     </div>
-	</div>
-</div>
+  </div>
 </nav>
 <img class="responsive-img z-depth-2" src="${pageContext.request.contextPath}/images/bannerFlatFlat.png" />
