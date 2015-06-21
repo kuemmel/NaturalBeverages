@@ -131,6 +131,12 @@ Ein dunkler Hintergrund hebt die hellen, freien Inhalte hervor.
 Bei der Datenbank wurde auf den Verzicht von Id's geachtet. Id's machten letztendlich nur bei den Orders, sowie den Users Sinn da, ein User am Tag mehrmals das gleiche bestellen kann und Date für einen Primary Key etwas unhandlich ist. Außerdem könnte sich die Email eines Users ändern. \\
 Im Grunde teilt sich die Datenbank in drei Teile auf. Orders und Boughtgoods vereinigen dabei alle anderen: eine Bestellung eines Users enthällt gekaufte Produkte mit Anzahl und Preis welche wiederum auf das Produkt zugreifen. Produkt, Category, Crate und Container beschreiben damit das Produkt insgesamt mit allen Anteilen. \\
 Es lässt sich darüber streiten ob ein solche Datenbankkonstrukt in der reellen Welt einsatzbereit ist. Sobald eine Kategorie umbenannt werden soll entsteht ein riesiger Schaden, da das nicht einfach so geschehen kann, ohne das Informationen verloren gehen können. Mit einer id als Primary Key wäre dies jedoch ohne weiteres möglich.
+\subsection{Dateistruktur}
+\begin{itemize}
+\item doc - enthällt die Dokumentation (also Hauptsächlich dieses File, Graphen, ...).
+\item webapps - das eigentliche Programm, welches so auch im Praxi zu finden ist.
+\end{itemize}
+
 
 \subsection{Authentication und User Management}
 Ein LogIn geschieht über einen Abruf und Abgleich der Datenbank. Das eingegebene Passwort wird in md5 gehasht und anschließen mit dem Datenbankeintrag (ebenfalls md5) abgeglichen.

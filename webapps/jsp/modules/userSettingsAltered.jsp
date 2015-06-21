@@ -1,5 +1,14 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
-
+<%
+    request.setAttribute("pageTitle","User Settings Altered");
+    request.setAttribute("scripts","utils.js userSettings.jsp");
+%>
+<jsp:include page="siteHead.jsp" />
+<BODY class="blue-grey darken-4">
+<!-- navbar -->
+<jsp:include page="nav.jsp" />
+<div class="container  blue-grey lighten-5">
 <%
     /**
      * Alter user data
@@ -12,8 +21,8 @@
      **/
     String email       = request.getParameter("email");
     String nick        = request.getParameter("nick");
-    String oldPassword = request.getParameter("oldPassword");
-    String password    = request.getParameter("password");
+    String oldPassword    = request.getParameter("oldPassword");
+    String newPassword = request.getParameter("newPassword");
     String name        = request.getParameter("name");
     String surname     = request.getParameter("surname");
     String address     = request.getParameter("address");
@@ -22,13 +31,13 @@
 
     SQLConnection sqlConnection = new SQLConnection(response.getWriter());
     oldPassword = sqlConnection.encryptMD5(oldPassword);
-    password = sqlConnection.encryptMD5(password);
+    newPassword = sqlConnection.encryptMD5(newPassword);
 
     String userId = (String) session.getAttribute("userID");
     String query = "update users set "
                 +"email="      +"\""+email      +"\","
                 +"nick="       +"\""+nick       +"\","
-                +"password="   +"\""+password   +"\","
+                +"password="   +"\""+newPassword   +"\","
                 +"name="       +"\""+name       +"\","
                 +"surname="    +"\""+surname    +"\","
                 +"address="    +"\""+address    +"\","
@@ -41,7 +50,7 @@
         if ( resultSet.next() && resultSet.getString("password").equals(oldPassword) )
         {
             sqlConnection.sqlUpdate(query);
-            out.println("User data altered!");
+            out.println("<h5>User data altered!</h5>");
         } else
         {
                     out.println("Invalid password <a href='userSettings.jsp'>try again</a>");
@@ -57,3 +66,6 @@
 
 
 %>
+</div>
+</BODY>
+</HTML>

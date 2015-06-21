@@ -1,10 +1,10 @@
 Fiddleless 12 years;Fiddler;/images/products/fiddleless.jpg;100;35.00;0,7 Glasflasche;Whiskey
 Islay Haze 18 years; Haze's;/images/products/islayHaze.jpg;2;35.00;0,7 Glasflasche;Whiskey 
 Uncle Jack;Uncle's;/images/products/uncleJack.jpg;42;12.00;0,7 Glasflasche;Whiskey
-Moonshine;Smith's;/images/products/moonshine.jpg;5;42.00;0,5 Glasflasche;Whiskey
+Moonshine;Smith's;/images/products/moonshine.jpg;5;42.00;0,5 Bierflasche;Whiskey
 Lancestor Ale;Lancastors;/images/products/lancestor.jpg;200;0.75;0,33 Bierflasche;Beer
 Bavaria;STPAULI Brauerei;/images/products/bavaria.jpg;420;0.75;0,33 Bierflasche;Beer
-Bull Dog;Murican Beers;/images/products/BullDog.jpg;350;0.90;0,5 Bierflasche;Beer
+Bull Dog;Murican Beers;/images/products/bullDog.jpg;350;0.90;0,5 Bierflasche;Beer
 Pinot Noir;Weinkellerei Hessenrhein;/images/products/pinotNoir.jpg;154;8.15;0,7 Glasflasche;Wine 
 Pinot Gris(Baden);Weinkellerei Weinheim;/images/products/pinotGris.jpg;150;6.00;0,7 Glasflasche;Wine
 Viking Mead;Honey And Sulfur;/images/products/vikingMead.jpg;50;4.00;1 Glasflasche;Mead

@@ -54,8 +54,8 @@
       <div class="card mainColor z-depth-3 ">
         <div class="row">
           <div class="col">
-            <div class="card-image row" style="margin-top:20px;">
-              <img src="<%=request.getContextPath()+product.getImagePath()%>" style="max-height:250px;max-width:250px;padding-left:10px;">
+            <div class="card-image row">
+              <img class="productImage materialboxed" data-caption="<%=product.getName()+" by "+product.getFirm()%> (image made by Alex M.)" src="<%=request.getContextPath()+product.getImagePath()%>">
             </div>
             <span class="card-title black-text" style="padding-left:20px;"><%=product.getName()%>(<%=product.getAmountPerUnit()%>L)</span>
               <div style="padding-left:20px;"><%=product.getCategoryName()%></div>

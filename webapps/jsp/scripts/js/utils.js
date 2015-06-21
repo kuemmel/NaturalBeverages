@@ -6,11 +6,6 @@ $(document).ready(function()
 {
 	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 	$('.modal-trigger').leanModal();
-	$("[type=range]").change(function()
- 	{
-    var amount=$(this).val()*document.getElementById("priceSpan").placeholder;
-    $("#priceSpan").text(amount);
-  });
   /**
    * Initialize dropdown
    **/
@@ -24,11 +19,19 @@ $(document).ready(function()
         belowOrigin: true // Displays dropdown below the button
   });
   /**
+   * Initialize materialboxes (open up images)
+   **/
+  $('.materialboxed').materialbox();  
+  /**
    * Initialize tabs
    **/
-  $(document).ready(function()
+  $('ul.tabs').tabs();
+  $('.slider').slider(
   {
-    $('ul.tabs').tabs();
+    Indicators: true,
+    Height: 1000,
+    Transition: 50,
+    Interval: 6000
   });
 });
 
@@ -62,7 +65,9 @@ $(function()
 
 function submitProductForm(formName)
 {
-  Materialize.toast('Added to Cart! <a class=\"btn white-text\" onclick=\"revertAdd(&quot;'+formName+'&quot;)\">revert</a>', 4000,'',addToCart(formName));
+
+  var dialog = 'Added to Cart! <a class=\"btn white-text\" onclick=\"revertAdd(&quot;'+formName+'&quot;)\">revert</a>';
+  Materialize.toast(dialog, 3000,"",function() {addToCart(formName)});
 }
 
 /**
@@ -95,11 +100,11 @@ function addToCart(formName)
     productHash["name"] = form["name"].value;
 
     cart[formName] = productHash;
-    localStorage.setObject("cart",cart)
-    setCart();
+    localStorage.setObject("cart",cart);
+    //setCart();
   } else
   {
-    return
+    return;
   }
 }
 
@@ -110,32 +115,33 @@ function submitCart()
 {
   //load cart
   var cart = localStorage.getItem("cart");
-  if (cart === null)
+  var data = {"cart":cart};
+  console.log(data);
+  if (cart === null || cart === "")
   {
     var cartDiv = document.getElementById("cartDiv");
-    cartDiv.innerHTML += "<p><h5>It's no use to submit an empty cart!</h5></p>\n";
+    cartDiv.innerHTML = "<p><h5>It's no use to submit an empty cart!</h5></p>\n";
     return false;
   }
-  cart = JSON.parse(cart);
-  //make a form to submit elements to
-  var form = document.createElement("form");
-  form.setAttribute("method","post");
-  form.setAttribute("action","${pageContext.request.contextPath}/modules/cart.jsp");
 
-  for(var key in cart)
-  {
-    product = cart[key];
-    var hiddenField = document.createElement("input");
-    hiddenField.setAttribute("type","hidden");
-    hiddenField.setAttribute("name","key"+product["name"]+product["firm"]);
-    hiddenField.setAttribute("value",product["amount"]);
-    
-    form.appendChild(hiddneField);
-  }
+  document.forms["cartForm"]["cart"].value = cart;
+  document.forms["cartForm"].submit();
 
-  clearCart();
-  document.body.appendChild(form);
-  form.submit();
+
+  // send a post to cart.jsp
+  /*$.ajax({
+    type: "POST",
+    url: "modules/cart.jsp",
+    dataType: 'html',
+    data: data,
+    success: function(response)
+    {
+        console.log("response: "+response);
+    }
+  });*/
+  //console.log("test");
+
+  //clearCart();
 }
  
  /**
@@ -144,16 +150,16 @@ function submitCart()
 function clearCart()
 {
   localStorage.setItem("cart","");
-  setCart();
+  //setCart();
 }
 
 /**
  *refresh the cart into the cartDiv <div> in the footer.jsp
  **/
-function setCart()
+function setCartDiv()
 {
   var cart = localStorage.getItem("cart");
-  if (cart === null)
+  if (cart === null || cart === "" || cart === "{}")
   {
     var cartDiv = document.getElementById("cartDiv");
     cartDiv.innerHTML = "There ain't no wares yet.";
@@ -161,7 +167,7 @@ function setCart()
   }
   cart = JSON.parse(cart);
   var totalPrice = 0;
-  var result = "<table class=\"striped\">\n  <thead>\n    <tr>\n";
+  var result = "<table id=\"tableCart\"class=\"striped hoverable\">\n  <thead>\n    <tr>\n";
   result += "      <th data-field=\"name\">Product</th>\n";
   result += "      <th data-field=\"firm\">Firm</th>\n";
   result += "      <th data-field=\"name\">refund</th>\n";
@@ -173,8 +179,9 @@ function setCart()
   for(var key in cart)
   {
     product = cart[key]
-    result += "<tr><td>"+product["name"]+"</td><td>"+product["firm"]+"</td><td>"+product["refund"]
-    +"</td><td>"+product["price"]+"</td><td>"+product["amount"]+"</td></tr>\n";
+    var id = ("cartTable:"+product["firm"]+":"+product["name"]);
+    result += "<tr id=\""+id+"\"><td>"+product["name"]+"</td><td>"+product["firm"]+"</td><td>"+product["refund"]
+    +"</td><td>"+product["price"]+"</td><td>"+product["amount"]+"</td><td><a href=\"#!\" onclick=\"clearProduct(&quot;"+id+"&quot;)\"><i class=\"mdi-content-clear red-text\"></a></td></tr>\n";
     totalPrice += (parseFloat(product["price"])+parseFloat(product["refund"]))*parseInt(product["amount"]);
 
   }
@@ -184,29 +191,34 @@ function setCart()
   cartDiv.innerHTML = result;
 }
 
-
 /**
- * Delete and re-insert default values into fields
- * also change form type to password in the password field
+ * clears the row of the cart with the given id 
  **/
-function onBlur(form)
+function clearProduct(id)
 {
-	if(form.value === '')
-	{
-		form.value = form.defaultValue;
-	}
-}
-function onFocus(form)
-{
-	if (form.name.match(/.*(password).*/i)) //caseInsensitive
-	{
-		form.type = "password";
-	}
+  console.log(id);
+  var cart = localStorage.getItem("cart");
+  if (cart === null)
+  {
+    window.alert("clearProduct(): Something went wrong! There's no cart")
+    return false;
+  }
+  cart = JSON.parse(cart);
+  var keyParts = id.split(":");
+  var key = "form:"+keyParts[1]+":"+keyParts[2];
+  console.log(key+"----");
+  delete cart[key];
+  for (var key in cart)console.log(key);
+  localStorage.setObject("cart",cart);
 
-	if(form.value === form.defaultValue)
-	{
-		form.value = '';
-	}
+
+  //var table = document.getElementById("tableCart");
+  //var tableRow = document.getElementById(id);
+  //tableRow.parentNode.removeChild(tableRow);
+
+  //table.removeChild(tableRow);
+  setCart();
+
 }
 
 Storage.prototype.setObject = function(key, value)

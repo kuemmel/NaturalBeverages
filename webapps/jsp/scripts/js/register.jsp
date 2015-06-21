@@ -77,6 +77,11 @@
 	{
 		localStorage.setObject("hash",hash);
 	}
+
+	function deleteFormInput(hash)
+	{
+		localStorage.removeItem("hash");
+	}
 	/**
 	 * If registering failed due to wrong input, remember the values
 	 * and if there's a sql error message, print it.

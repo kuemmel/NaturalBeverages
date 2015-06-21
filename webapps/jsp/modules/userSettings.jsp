@@ -43,7 +43,7 @@
 <jsp:include page="nav.jsp" />
 <div class="container  blue-grey lighten-5">
 	 <div class="row">
-    <form class="col s12" id="form" method="post" name="form" action="modules/registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
+    <form class="col s12" id="form" method="post" name="form" action="userSettingsAltered.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
       <div class="row">
         <div class="input-field col s6">
           <input id="name" value="<%=name %>" name="name" type="text" class="validate">
@@ -53,20 +53,23 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6">
-          <input id="password" placeholder="password" name="password" type="password" class="validate">
-        </div>
-        <div class="input-field col s6">
-          <input id="repeatPassword" placeholder="repeatPassword" name="repeatPassword" type="password" class="validate">
+        <div class="input-field col s12">
+          <input id="oldPassword" placeholder="old password" name="oldPassword" type="password" class="validate">
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
+          <input id="newPassword" placeholder="new password" name="newPassword" type="password" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <input id="repeatPassword" placeholder="repeat Password" name="repeatPassword" type="password" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
           <input id="email" value="<%=email %>" name="email" type="email" class="validate">
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <input id="nick" value="<%=nick %>" name="nick" type="text" class="validate">
         </div>
       </div>

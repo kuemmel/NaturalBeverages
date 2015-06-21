@@ -5,9 +5,13 @@
     <div id="cartDiv"></div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Abbort</a>
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="clearCart()">Clear cart</a>
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="submitCart()">Buy</a>
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close Cart</a>
+    <a href="#!" class=" modal-action waves-effect waves-green btn-flat" onclick="clearCart()">Clear Cart</a>
+    <a href="#!" class=" modal-action waves-effect waves-green btn-flat" onclick="submitCart()">Order</a>
+
+    <form name='cartForm' id='cartForm' action="${pageContext.request.contextPath}/modules/cart.jsp" method="GET">
+      <input type='hidden' name='cart' />
+    </form>
   </div>
 </div>
 
@@ -32,7 +36,7 @@
   </div>
   <div class="footer-copyright">
     <div class="container">
-        © 2015 some copyright
+        © 2015 some copyright; all products are fictional; all images rendered in Cycles by myself.
     </div>
   </div>
 </footer>
