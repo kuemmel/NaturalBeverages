@@ -83,7 +83,7 @@ create table boughtgoods (
 	, beverageName varchar(30)
 	, crate boolean
 	, amount int(4)
-	, primary key (orderid)	
+	, primary key (orderid,beverageName)	
 	, constraint foreign key (beverageName) references dz39.beverages(name) on update restrict on delete cascade
 	, constraint foreign key (orderId) references dz39.orders(id) on update restrict on delete cascade
 	) engine = INNODB;

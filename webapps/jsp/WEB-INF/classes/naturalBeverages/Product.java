@@ -21,14 +21,11 @@ public class Product
 
 	// the amount of products to be bought
 	private int amount;
-	// if bought as crates
-	private boolean crate;
 
 	public Product(ResultSet resultSet)
 	{
 		getProductFromResultSet(resultSet);
 		this.amount = 0;
-		this.crate = false;
 	}
 
 	/**
@@ -62,18 +59,10 @@ public class Product
 		}
 	}
 
-	public String returnAsHtmlTableRow()
+	public void insertIntoBoughtGoods(SQLConnection sqlConnection, int orderId) throws SQLException
 	{
-		return "<tr>\n"
-			+	  "<td>"+this.name+"</td>\n"
-			+	  "<td>"+this.firm+"</td>\n"
-			+	  "<td>"+pricePerUnit+"</td>\n"
-			+	  "<td>"+refundPerUnit+"</td>\n"
-			+	  "<td>"+this.amount+"</td>\n"
-			+	  "<td>"+((crate)? "yes" : "no" )+"</td>\n"
-			+	  "<td>"+getPricePerAmount()+"</td>\n"
-			+	  "<td>"+getRefundPerAmount()+"</td>\n"
-			+	"</tr>\n";
+		String query = "insert into boughtgoods (orderId,beverageName,crate,amount) values (\""+orderId+"\",\""+this.name+"\",\"1\",\""+this.amount+"\");";
+		sqlConnection.sqlUpdate(query);
 	}
 
 	/**
@@ -144,6 +133,11 @@ public class Product
 		}
 	}
 
+	public void setAmount(int amount)
+	{
+		this.amount = amount;
+	}
+
 	public String toString()
 	{
 		return ("name " + name + "firm " + firm + "imagePath " + imagePath + "amountLeft "
@@ -152,9 +146,16 @@ public class Product
 		+ amountPerCrate + "categoryName " + categoryName);
 	}
 
+	public Money getTotal()
+	{
+		return getPricePerAmount().add(getRefundPerAmount());
+	}
+
 	public Money getRefundPerAmount()
 	{
-		return refundPerUnit.multiply(this.amount).add((crate)? refundPerCrate : new Money(0));
+		Money refundPerAmount = refundPerUnit.multiply(this.amount);
+		Money crateRefund = refundPerCrate.multiply((int)Math.floor(this.amount/this.amountPerCrate));
+		return refundPerAmount.add(crateRefund);
 	}
 
 	public Money getPricePerAmount()

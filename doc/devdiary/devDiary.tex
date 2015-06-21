@@ -134,7 +134,18 @@ Es lässt sich darüber streiten ob ein solche Datenbankkonstrukt in der reellen
 \subsection{Dateistruktur}
 \begin{itemize}
 \item doc - enthällt die Dokumentation (also Hauptsächlich dieses File, Graphen, ...).
-\item webapps - das eigentliche Programm, welches so auch im Praxi zu finden ist.
+\item webapps/jsp - das eigentliche Programm, welches so auch im Praxi zu finden ist.
+	\begin{itemize}
+		\item admin - die Adminverwaltungsservlets zur Stammdatenverwaltung (siehe Admin Tool).
+		\item css - die Stylesheets für die Website
+		\item font - weitere Fonts für die Website (gehören zu materialize).
+		\item images - Die Bilder der Website images/products für die Produkte.
+		\item modules - enthällt die jsp Seiten(teile)
+		\item scripts - Javascriptscripte zum Darstellen von dynamischen Inhalten.
+		\item WEB-INF/classes - enthällt sowohl die servlet Klassen, als auch die Datenbankfiles.
+	          Außerdem wurden hier nochmal die *.jars aus /WEB-INF/lib/ reinentpackt.
+		\item WEB-INF/lib - enthällt eine json Lib (Die sollte bei einer aktuellen(!) Javaversion bereits vorhanden sein)
+	\end{itemize}
 \end{itemize}
 
 

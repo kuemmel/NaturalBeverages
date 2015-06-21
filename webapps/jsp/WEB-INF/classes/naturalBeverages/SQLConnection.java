@@ -25,6 +25,11 @@ public class SQLConnection
 		this.buildConnectionToDB();
 	}
 
+	public SQLConnection()
+	{
+		this.buildConnectionToDB();
+	}
+
 	public void loadDriver() throws ClassNotFoundException
 	{
 		Class.forName("com.mysql.jdbc.Driver");
@@ -186,5 +191,9 @@ public class SQLConnection
 	public int sqlUpdate(String query) throws SQLException
 	{
 		return statement.executeUpdate(query);
+	}
+	public int sqlUpdateReturnGenerated(String query) throws SQLException
+	{
+		return statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 	}
 }

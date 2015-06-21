@@ -1,48 +1,86 @@
 package naturalBeverages;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.Iterator;
+import java.sql.*;
+import java.io.PrintWriter;
+import org.json.simple.*;
+/**
+ * compile with  javac  -Xlint:unchecked -cp ..\..\lib\json_simple-1.1.jar cart.java Product.java Money.java
+ **/
 
 public class Cart 
 {
 	private String userId;
-	private ArrayList<Product> products;
+	public ArrayList<Product> products;
+	public ArrayList<String> test;
 
-	public Cart(String userId)
+	public Cart(String userId, JSONObject jsonObject)
 	{
 		this.userId = userId;
+		this.products = new ArrayList<Product>();
+		this.test = new ArrayList<String>();
+		SQLConnection sqlConnection = new SQLConnection();
+		getProductsFromJSON(jsonObject,sqlConnection);
+		setOrder(sqlConnection);
 	}
 
-	public String returnAsHtmlTable()
+	/**
+	 * Gets a jsonobject
+	 * {"form:firm:name":{"firm":"the firm", "amount","price","name","refund",}}
+	 * only name, firm, amount are needed to load the rest of the data from the tables.
+	 **/
+	private void getProductsFromJSON(JSONObject jsonObject,SQLConnection sqlConnection)
 	{
-		Money price = new Money(0);
-		Money refund = new Money(0);
-		String head = "";
-		String body = "<tbody>";
-		String foot = "</tbody></table>";
+		//otherwise javac will print a warning! bad practice but it works
+		Set<?> keySet = jsonObject.keySet();
+		Iterator<?> iterator = keySet.iterator();
+		
 
-		head = "<table>\n"
-		+"  <thead>\n"
-		+"    <tr>\n"
-		+"      <th data-field=\"Products\">Products</th>\n"
-		+"      <th data-field=\"Firm\">Firm</th>\n"
-		+"      <th data-field=\"Price per Bottle\">Price Per Bottle</th>\n"
-		+"      <th data-field=\"Refund per Bottle\">Refund Per Bottle</th>\n"
-		+"      <th data-field=\"Amount\">Amount</th>\n"
-		+"      <th data-field=\"Crate\">Crate</th>\n"
-		+"      <th data-field=\"Price\">Price</th>\n"
-		+"      <th data-field=\"Refund\">Refund</th>\n"
-		+"    </tr>\n"
-		+"</thead>\n";
-
-		for(Product product : this.products)
+		while(iterator.hasNext())
 		{
-			body += product.returnAsHtmlTableRow();
-			refund = refund.add(product.getRefundPerAmount());
-			price  = price.add(product.getPricePerAmount());
+			String key = (String) iterator.next();
+			JSONObject currentProduct = (JSONObject) jsonObject.get((Object)key);
+			String firm = (String)currentProduct.get((Object)"firm");
+			String name = (String)currentProduct.get((Object)"name");
+			int amount = Integer.parseInt((String)currentProduct.get((Object)"amount"));
+			try
+			{
+				ResultSet resultSet = sqlConnection.getProductByNameAndFirm(name,firm);
+				resultSet.next();
+				Product product = new Product(resultSet);
+				product.setAmount(amount);
+				products.add(product);
+
+			} catch(Exception e)
+			{
+				throw new RuntimeException("error loading products from db "+e);
+			}
+			//test.add((String)currentProduct.get((Object)"firm"));
+			
 		}
 
-		foot += "total "+price+" refund "+refund;
+	}
+	private void setOrder(SQLConnection sqlConnection)
+	{
+		int floor = 0;
+		String getUserQuery = "select * from users where id = \""+userId+"\";";
+		try 
+    	{
+    		ResultSet userResultSet = sqlConnection.sqlQuery(getUserQuery);
 
-		return head+body+foot;
+			userResultSet.next();
+			floor = Integer.parseInt(userResultSet.getString("floor"));
+			String orderInsertQuery = "insert into orders (userId,service) values (\""+userId+"\",\"1\");";
+        	int orderId = sqlConnection.sqlUpdateReturnGenerated(orderInsertQuery);
 
+        	for(Product product : this.products)
+        	{
+        		product.insertIntoBoughtGoods(sqlConnection,orderId);
+        	}
+    	} catch(SQLException e)
+    	{
+    		throw new RuntimeException("Problem setting up the order: "+e+" "+floor);
+    	}
 	}
 }
