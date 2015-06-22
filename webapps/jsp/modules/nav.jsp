@@ -12,7 +12,7 @@
   <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/products.jsp">Products</a></li>
   <li class="divider"></li>
-  <li><a href="${pageContext.request.contextPath}/modules/register.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/register_new.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
   <li><a class="modal-trigger <%if(!loggedIn)out.println("hide");%>" href="#modal1" onclick="setCartDiv()">Cart</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp" class="<%if(!loggedIn)out.println("hide");%>">Settings</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/logout.jsp" class="<%if(!loggedIn)out.println("hide");%>">Log out</a></li>

@@ -3,7 +3,8 @@
 <%
     /**
      * Register users into the database. 
-     * validating the user input is done in register.jsp
+     * validating the user input is done in register.jsp -> register_new.jsp because the praxi(production) server caches register.jsp
+     * since 16.6.15 
      * PASSWORD IS STORED IN MD5! That's weak! Do not use this for anything.
      * Just don't.
      *
@@ -42,7 +43,7 @@
     } catch(SQLException e)
     {
         session.setAttribute("sqlErrorCode",String.valueOf(e.getErrorCode()));
-        response.sendRedirect("../register.jsp");
+        response.sendRedirect("../register_new.jsp");
     }
 
 

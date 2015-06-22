@@ -71,7 +71,7 @@
           <p>Get freshly made juicdes, coffee, mead, beer, whiskey and much more on Natural Beverages!</p>
         </div>
         <div class="card-action">
-          <a href="${pageContext.request.contextPath}/modules/register.jsp">Sign Up</a>
+          <a href="${pageContext.request.contextPath}/modules/register_new.jsp">Sign Up</a>
           <a href="${pageContext.request.contextPath}/modules/products.jsp">Browse Products</a>
         </div>
       </div>

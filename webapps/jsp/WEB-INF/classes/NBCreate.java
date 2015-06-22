@@ -58,6 +58,7 @@ public class NBCreate extends NaturalBeveragesAdmin
 		//delete old tables, create new ones
 			try 
 			{
+				//test
 				statement.executeUpdate("drop table if exists boughtgoods; ");
 				statement.executeUpdate("drop table if exists orders; ");
 				statement.executeUpdate("drop table if exists beverages; ");
@@ -65,19 +66,20 @@ public class NBCreate extends NaturalBeveragesAdmin
 				statement.executeUpdate("drop table if exists crates; ");
 				statement.executeUpdate("drop table if exists categories; ");
 				statement.executeUpdate("drop table if exists users;");
-				statement.executeUpdate("create table users (id mediumint not null unique auto_increment, email varchar(64) unique, nick varchar(20), password text, name varchar(20), surname varchar(20), dateOfBirth date, address varchar(64), floor int(2), zipcode int(6), dateOfSignUp timestamp default current_timestamp on update current_timestamp, primary key (id)) engine = INNODB;");
-				statement.executeUpdate("create table categories (name varchar(20), primary key (name)) engine = INNODB;");
-				statement.executeUpdate("create table crates (name varchar(20), amountPerCrate int(3), refund numeric(2,2), primary key (name)) engine = INNODB;");
-				statement.executeUpdate("create table containers (name varchar(20), amountPerUnit numeric(2,2), refund numeric(2,2), crateName varchar(20), primary key(name), constraint foreign key (crateName) references dz39.crates(name) on update restrict on delete cascade) engine = INNODB;");
-				statement.executeUpdate("create table beverages (name varchar(20), firm varchar(20), imagePath text, amountLeft int(10), pricePerUnit numeric(10,2), containerName varchar(20), categoryName varchar(20), primary key (name,firm), constraint foreign key (categoryName) references dz39.categories(name) on update restrict on delete cascade, constraint foreign key (containerName) references dz39.containers(name) on update restrict on delete cascade) engine = INNODB;");
+				statement.executeUpdate("create table users (id mediumint not null unique auto_increment, email varchar(64) unique, nick varchar(30), password text, name varchar(30), surname varchar(30), dateOfBirth date, address varchar(64), floor int(2), zipcode int(6), dateOfSignUp timestamp default current_timestamp on update current_timestamp, primary key (id)) engine = INNODB;");
+				statement.executeUpdate("create table categories (name varchar(30), primary key (name)) engine = INNODB;");
+				statement.executeUpdate("create table crates (name varchar(30), amountPerCrate int(3), refund numeric(2,2), primary key (name)) engine = INNODB;");
+				statement.executeUpdate("create table containers (name varchar(30), amountPerUnit numeric(2,2), refund numeric(2,2), crateName varchar(30), primary key(name), constraint foreign key (crateName) references dz39.crates(name) on update restrict on delete cascade) engine = INNODB;");
+				statement.executeUpdate("create table beverages (name varchar(30), firm varchar(30), imagePath text, amountLeft int(10), pricePerUnit numeric(10,2), containerName varchar(30), categoryName varchar(30), primary key (name,firm), constraint foreign key (categoryName) references dz39.categories(name) on update restrict on delete cascade, constraint foreign key (containerName) references dz39.containers(name) on update restrict on delete cascade) engine = INNODB;");
 				statement.executeUpdate("create table orders (id mediumint not null unique auto_increment, userId mediumint, dateOfOrder timestamp default current_timestamp on update current_timestamp, service boolean, primary key (id), constraint foreign key (userId) references dz39.users(id) on update restrict on delete cascade) engine = INNODB;");
-				statement.executeUpdate("create table boughtgoods (orderId mediumint, beverageName varchar(20), crate boolean, amount int(4), primary key (orderid)	, constraint foreign key (beverageName) references dz39.beverages(name) on update restrict on delete cascade, constraint foreign key (orderId) references dz39.orders(id) on update restrict on delete cascade) engine = INNODB;");
+				statement.executeUpdate("create table boughtgoods (orderId mediumint, beverageName varchar(30), crate boolean, amount int(4), primary key (orderid,beverageName)	, constraint foreign key (beverageName) references dz39.beverages(name) on update restrict on delete cascade, constraint foreign key (orderId) references dz39.orders(id) on update restrict on delete cascade) engine = INNODB;");
 			} catch (SQLException e)
 			{ 
 				StackTraceElement ste = new Exception().getStackTrace()[0];
 				String line = ste.getClassName() + String.valueOf(ste.getLineNumber());
 
 				out.println("Problem occured while creating tables, cause: "+e+"at line "+line+"<br />");
+
 			}
 			out.println("Tables created. <br />");
 
@@ -94,7 +96,8 @@ public class NBCreate extends NaturalBeveragesAdmin
 						insertValuesFromFile(tableName);
 					} catch(SQLException e)
 					{
-						out.println(" <br /> \t Problem occured: "+e+"<br />");
+						out.print(" <br /> \t <b> are the data files in unix line endings(\\n)?</b>");
+						out.println("Problem occured: "+e+"<br />");
 						//can happen, if there is no mass data needed, for example Users.
 					} catch(NullPointerException e)
 					{
@@ -107,8 +110,8 @@ public class NBCreate extends NaturalBeveragesAdmin
 				out.println(e.getMessage()+"<br> Problem mit: LOAD DATA article !<br>"+"<br />");
 			}
 		}
-
-		out.println("static values filled in <br />");
+		out.println("<hr>");
+		out.println("static values filled in -- <br />");
 
 		out.println("<a href='http://praxi.mt.haw-hamburg.de/~"+this.userID+"/TelDBServletHome.html'>Home</a><hr>");
 
