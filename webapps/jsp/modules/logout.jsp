@@ -2,7 +2,7 @@
 <%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
 <%
 	request.setAttribute("pageTitle","LoggedOut");
-	request.setAttribute("scripts","utils.js");
+	request.setAttribute("scripts","utils.jsp");
 %>
 <jsp:include page="siteHead.jsp" />
 <BODY>
@@ -11,6 +11,8 @@
 	<a href="${pageContext.request.contextPath}/index.jsp">Home</a>
 	 <%
 	 	session.removeAttribute("userID");
+	 	session.removeAttribute("floor");
+	 	//session.removeAttribute("cart");
 
 	 	if(session.getAttribute("userID") == null)
 	 	{

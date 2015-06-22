@@ -1,5 +1,6 @@
 package naturalBeverages;
 import java.sql.*;
+import org.json.simple.*;
 /**
  * Hold a product imported from the dz39.beverages table joined with crates, containers and categories.
  * Prints a card with product infos to be drawn on a html surface
@@ -26,6 +27,11 @@ public class Product
 	{
 		getProductFromResultSet(resultSet);
 		this.amount = 0;
+	}
+
+	public Product(JSONObject jsonObject)
+	{
+		getProductFromJSON(jsonObject);
 	}
 
 	/**
@@ -58,6 +64,34 @@ public class Product
 			throw new RuntimeException("ResultSet empty trying to get products: "+e+" "+" "+stackTrace+" "+line);
 		}
 	}
+	
+	/**
+	 * Add a single product to the cart from a jsonString which looks like
+	 * {"name":"\s+","firm":"\s+","amount":\d+}
+	 *
+	 *
+	 * @todo write new method addSingleProduct(name,firm,amount)
+	 * which is called from addProduct and getProductsFromJSON
+	 **/
+	public void getProductFromJSON(JSONObject jsonObject)
+	{
+		SQLConnection sqlConnection = new SQLConnection();
+		try
+		{
+			String name = (String) jsonObject.get((Object)"name");
+			String firm = (String) jsonObject.get((Object)"firm");
+			int amount = Integer.parseInt((String) jsonObject.get((Object)"amount"));
+
+			ResultSet resultSet = sqlConnection.getProductByNameAndFirm(name,firm);
+			resultSet.next();
+			getProductFromResultSet(resultSet);
+			this.setAmount(amount);
+		} catch (Exception e)
+		{
+			throw new RuntimeException("error loading single product from db "+e);
+		}
+	}
+
 
 	public void insertIntoBoughtGoods(SQLConnection sqlConnection, int orderId) throws SQLException
 	{
@@ -65,58 +99,23 @@ public class Product
 		sqlConnection.sqlUpdate(query);
 	}
 
-	/**
-	 * 
-	 *
-	 * @todo: add \n if necessary
-	 **/
-	public String returnAsHtmlCard(String contextPath)
+	@SuppressWarnings("unchecked") //json-simple does not support generics as of yet (it seems)
+	public JSONObject getJSON()
 	{
-		 String card = 
-		   "<div class=\"row\">\n"
-		  +"  <div class=\"col s8 m8 l8\">\n" 
-		  +"    <div class=\"card .mainColor z-depth-3 white-text\">\n"
-		  +"      <div class=\"row\">\n"
-		  +"        <div class=\"col\">\n"
-		  +"          <div class=\"card-image row\" style=\"margin-top:20px;\">\n"
-		  +"            <img src=\""+contextPath+this.imagePath+"\" style=\"max-height:250px;max-width:250px;padding-left:10px;\">\n"
-		  +"          </div>\n"
-		  +"          <span class=\"card-title\" style=\"padding-left:20px;\">"+this.name+"("+this.amountPerUnit+"L)</span>\n"
-		  +"            <div style=\"padding-left:20px;\">"+categoryName+"</div>\n"
-		  +"        </div>\n"
-		  +"        <div class=\"card-content col\" >\n"
-		  +"          <table>\n"
-		  +"            <tr><td>"+isInStock()+"</td></tr>\n"
-		  +"            <tr><td>"+firm+"</td></tr>\n"
-		  +"            <tr><td>Price:</td><td>"+pricePerUnit.toString()+"</td></tr>\n"
-		  +"            <tr><td>Refund:</td><td>"+refundPerUnit.toString()+"</td></tr>\n"
-		  +"            <tr><td>Crate:</td><td>"+getPricePerCrate().toString()+"("+amountPerCrate+")</td></tr>\n"
-		  +"            <tr><td>Refund per crate:</td><td>"+getRefundPerCrate().toString()+"</td></tr>\n"
-		  +"			<tr><td>current price:</td><td><span name=\"priceSpan\">"+getPricePerUnit().toString()+"</td></tr>\n"
-		  +"          </table>\n"
-		  +"        </div>\n"
-		  +"      </div>\n"
-		  +"      <div class=\"row\">\n"
-		  +"        <div class=\"card-action\" >\n"
-		  +"          <form action=\"\" name=\"form\" method=\"GET\">\n"
-		  +"            <div class=\"col\" style=\"width:30%;\">\n"
-		  +"                  <button class=\"btn waves-effect waves-light col\" name=\""+"button"+"\" type=\"submit\">Add to cart\n"
-		  +"               <i class=\"mdi-content-send right\"></i>\n"
-		  +"              </button>\n"
-		  +"            </div>\n"
-		  +"            <div class=\"col\" style=\"width:70%;\">\n"
-		  +"              <p class=\"range-field\">\n"
-		  +"                <input type=\"range\" name =\"amount\" value=\"0\" class=\"col\" min=\"1\" max=\""+amountLeft+"\" style=\"width:100%;\" /> <!--style=\"overflow:hidden\";-->\n"
-		  +"              </p>\n"
-		  +"            </div>\n"
-		  +"          </form>\n"
-		  +"        </div>\n"
-		  +"      </div>\n"
-		  +"    </div>\n"
-		  +"  </div>\n"
-		  +"</div>\n";
+		JSONObject object = new JSONObject();
 
-		return card;
+		object.put("name",this.name);
+		object.put("firm",this.firm);
+		object.put("amount",this.amount);
+		object.put("pricePerUnit",this.pricePerUnit.toString());
+		object.put("amountPerUnit",this.amountPerUnit);
+		object.put("refundPerUnit",this.refundPerUnit.toString());
+		object.put("refundPerCrate",this.refundPerCrate.toString());
+		object.put("amountPerCrate",this.amountPerCrate);
+		object.put("price",this.getPricePerAmount().toString());
+		object.put("refund",this.getRefundPerAmount().toString());
+
+		return object;
 	}
 
 	public String isInStock()

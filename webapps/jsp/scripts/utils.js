@@ -1,4 +1,4 @@
-
+<%@page contentType="text/javascript" %>
 /**
  * Initialize modals(e.g the cart)
  **/
@@ -55,19 +55,18 @@ $(function()
     });
 });
 
-
-
-
-
 /**
  * Cart functions
+ * UPDATE: Most browsers in university are too old to have html5 (and therefore no localStorage).
+ * There are two ways to do this now: Cookies and ajax. This is an ajax approach.
+ *
  **/
 
 function submitProductForm(formName)
 {
 
   var dialog = 'Added to Cart! <a class=\"btn white-text\" onclick=\"revertAdd(&quot;'+formName+'&quot;)\">revert</a>';
-  Materialize.toast(dialog, 3000,"",function() {addToCart(formName)});
+  Materialize.toast(dialog, 2000,"",function() {addToCart(formName)});
 }
 
 /**
@@ -79,17 +78,35 @@ function revertAdd(formName)
   form["amount"].value = 0;
 }
 
+
+function setObject(key, value)
+{
+    document.cookie = key+"="+JSON.stringify(value);
+}
+
+function getObject(key)
+{
+  var name = key + "=";
+  var all_cookies = document.cookie.split(';'); //get all cookies
+  for(var i=0; i<all_cookies.length;i++)
+  {
+    var cookie = all_cookies[i];
+    while(cookie.charAt(0)== ' ') cookie = cookie.substring(1);
+    if(cookie.indexOf(name) == 0) return cookie.substring(name.length,cookie.length);
+  }
+  return "";
+}
+
 /**
  * Add the current product to the cart
- **/
+ *
 function addToCart(formName)
 {
   var form = document.getElementById(formName);
-  window.alert(form["amount"].value);
   
   if(form["amount"].value > 0)
   {
-    var cart = localStorage.getItem("cart");
+    var cart = getObject("cart");
     if(cart === "") var cart = {};
     else cart = JSON.parse(cart);
     productHash = {};
@@ -100,21 +117,65 @@ function addToCart(formName)
     productHash["name"] = form["name"].value;
 
     cart[formName] = productHash;
-    localStorage.setObject("cart",cart);
+    setObject("cart",cart);
     //setCart();
   } else
   {
     return;
   }
+}*/
+
+/**
+ * Returns the data for a product
+ **/
+function addToCart(formName)
+{
+
+  var form = document.getElementById(formName);
+  
+  if(form["amount"].value > 0)
+  {
+
+    productHash = {};
+    productHash["firm"] = form["firm"].value;
+    productHash["amount"] = form["amount"].value;
+    productHash["name"] = form["name"].value;
+    var contextPath = "/jsp"
+    var data = {"new":JSON.stringify(productHash)};
+    $.post(contextPath+"/ProductServlet",data,function(data,status){setProductDetails(data)});
+  }
+}
+
+function setProductDetails(data)
+{
+  console.log("data: "+data);
+  var cart = getObject("cart");
+  if(cart === "") var cart = {};
+  else cart = JSON.parse(cart);
+  var json = JSON.parse(data);
+  productHash = {};
+  productHash["firm"] = json["firm"];
+  productHash["name"] = json["name"];
+  productHash["amount"] =json["amount"];
+  productHash["pricePerUnit"] = json["pricePerUnit"];
+  productHash["refundPerUnit"] = json["refundPerUnit"];
+  productHash["refundPerCrate"] = json["refundPerCrate"];
+  productHash["amountPerUnit"] = json["amountPerUnit"];
+  productHash["amountPerCrate"] = json["amountPerCrate"];
+  productHash["price"] = json["price"];
+  productHash["refund"] = json["refund"];
+  console.log("productHash: "+productHash);
+  cart["firm:"+json["firm"]+":"+json["name"]] = productHash;
+  setObject("cart",cart);
 }
 
 /**
  * submit cart as a requestparameter for the jsp program and clear the cart
- **/
+ */
 function submitCart()
 {
   //load cart
-  var cart = localStorage.getItem("cart");
+  var cart = getObject("cart");
   var data = {"cart":cart};
   console.log(data);
   if (cart === null || cart === "")
@@ -127,38 +188,28 @@ function submitCart()
   document.forms["cartForm"]["cart"].value = cart;
   document.forms["cartForm"].submit();
 
-
-  // send a post to cart.jsp
-  /*$.ajax({
-    type: "POST",
-    url: "modules/cart.jsp",
-    dataType: 'html',
-    data: data,
-    success: function(response)
-    {
-        console.log("response: "+response);
-    }
-  });*/
-  //console.log("test");
-
-  //clearCart();
 }
- 
+
  /**
   * clear the current cart
-  **/ 
+  */
 function clearCart()
 {
-  localStorage.setItem("cart","");
-  //setCart();
+  deleteCookie("cart");
+  setCartDiv();
+}
+
+function deleteCookie(name)
+{
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 /**
  *refresh the cart into the cartDiv <div> in the footer.jsp
- **/
+ */
 function setCartDiv()
 {
-  var cart = localStorage.getItem("cart");
+  var cart = getObject("cart");
   if (cart === null || cart === "" || cart === "{}")
   {
     var cartDiv = document.getElementById("cartDiv");
@@ -167,12 +218,17 @@ function setCartDiv()
   }
   cart = JSON.parse(cart);
   var totalPrice = 0;
+  var totalRefund = 0;
+  var totalService = 0;
+  var amountInL = 0;
+  var floor = <%=session.getAttribute("floor")%>;
   var result = "<table id=\"tableCart\"class=\"striped hoverable\">\n  <thead>\n    <tr>\n";
   result += "      <th data-field=\"name\">Product</th>\n";
   result += "      <th data-field=\"firm\">Firm</th>\n";
   result += "      <th data-field=\"name\">refund</th>\n";
   result += "      <th data-field=\"price\">Price</th>\n";
   result += "      <th data-field=\"price\">Amount</th>\n";
+  result += "      <th data-field=\"subtotal\">Subtotal</th>\n";
   result += "    </tr>\n";
   result += "  </thead>\n";
   result += "  <tbody>\n";
@@ -180,24 +236,30 @@ function setCartDiv()
   {
     product = cart[key]
     var id = ("cartTable:"+product["firm"]+":"+product["name"]);
-    result += "<tr id=\""+id+"\"><td>"+product["name"]+"</td><td>"+product["firm"]+"</td><td>"+product["refund"]
-    +"</td><td>"+product["price"]+"</td><td>"+product["amount"]+"</td><td><a href=\"#!\" onclick=\"clearProduct(&quot;"+id+"&quot;)\"><i class=\"mdi-content-clear red-text\"></a></td></tr>\n";
-    totalPrice += (parseFloat(product["price"])+parseFloat(product["refund"]))*parseInt(product["amount"]);
+    result += "<tr id=\""+id+"\"><td>"+product["name"]+"</td><td>"+product["firm"]+"</td><td>"+product["refundPerUnit"]
+    +"</td><td>"+product["pricePerUnit"]+"</td><td>"+product["amount"]+"</td><td><a href=\"#!\" onclick=\"clearProduct(&quot;"
+    +id+"&quot;)\"><i class=\"mdi-content-clear red-text\"></a></td><td>"
+    +(parseFloat(product["price"])+parseFloat(product["refund"]))+"</td></tr>\n";
 
+    totalPrice += (parseFloat(product["price"])+parseFloat(product["refund"]));
+    totalRefund += parseFloat(product["refund"]);
+    amountInL += parseFloat(product["amountPerUnit"]);
   }
+  totalService = getService(amountInL,floor,0.05);
   result += "  </tbody>\n </table>";
-  result += "<p> total: "+totalPrice+"€";
+  result += "<p> Total: "+Math.floor(totalPrice*100)/100+"€ " + Math.floor(totalRefund*100)/100+"€ Total Service: "+totalService+"€</p>";
+  result += "<p> Total: "+Math.floor((totalPrice+totalService)*100)/100+"€ </p>";
   var cartDiv = document.getElementById("cartDiv");
   cartDiv.innerHTML = result;
-}
+} 
 
 /**
  * clears the row of the cart with the given id 
- **/
+ */
 function clearProduct(id)
 {
   console.log(id);
-  var cart = localStorage.getItem("cart");
+  var cart = getObject("cart");
   if (cart === null)
   {
     window.alert("clearProduct(): Something went wrong! There's no cart")
@@ -209,34 +271,16 @@ function clearProduct(id)
   console.log(key+"----");
   delete cart[key];
   for (var key in cart)console.log(key);
-  localStorage.setObject("cart",cart);
-
-
-  //var table = document.getElementById("tableCart");
-  //var tableRow = document.getElementById(id);
-  //tableRow.parentNode.removeChild(tableRow);
-
-  //table.removeChild(tableRow);
-  setCart();
+  deleteCookie("cart");
+  setObject("cart",cart);
+  setCartDiv();
 
 }
 
-Storage.prototype.setObject = function(key, value)
-{
-    this.setItem(key, JSON.stringify(value));
-}
 /**
- * Remember values
- *
-
-function saveHash(name,hash)
+ * Get the service cost of carrying everything upstairs
+ **/
+function getService(amount,floor,service_cost)
 {
-  localStorage.setObject(name,hash);
+  return Math.floor((amount*floor*service_cost)*100)/100;
 }
-
-function loadhash(name)
-{
-  var hash = localStorage.getItem(name);
-  return JSON.parse(hash);
-}
-*/

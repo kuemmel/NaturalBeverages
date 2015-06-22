@@ -13,6 +13,7 @@
 		if(resultSet.next())
 		{
 			session.setAttribute("userID",resultSet.getString("id"));
+			session.setAttribute("floor",resultSet.getString("floor"));
 			response.sendRedirect("userSettings.jsp");
 		} else
 		{

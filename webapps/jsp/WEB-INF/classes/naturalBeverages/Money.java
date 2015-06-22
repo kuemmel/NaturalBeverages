@@ -36,6 +36,12 @@ public class Money
 		return new Money(this.value.multiply(value.getValue()));
 	}
 
+	public Money multiply(double value)
+	{
+		value = Math.floor(value * 100.00) / 100; //truncate to two decimal places
+		return new Money(this.value.multiply(new BigDecimal(value)));
+	}	
+
 	public Money multiply(int value)
 	{
 		return new Money(this.value.multiply(new BigDecimal(value)));

@@ -8,7 +8,6 @@
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close Cart</a>
     <a href="#!" class=" modal-action waves-effect waves-green btn-flat" onclick="clearCart()">Clear Cart</a>
     <a href="#!" class=" modal-action waves-effect waves-green btn-flat" onclick="submitCart()">Order</a>
-
     <form name='cartForm' id='cartForm' action="${pageContext.request.contextPath}/modules/cart.jsp" method="GET">
       <input type='hidden' name='cart' />
     </form>

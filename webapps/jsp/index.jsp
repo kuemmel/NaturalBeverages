@@ -2,7 +2,7 @@
 <%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
 <%
 	request.setAttribute("pageTitle","Home");
-	request.setAttribute("scripts","utils.js");
+	request.setAttribute("scripts","utils.jsp");
 %>
 <jsp:include page="modules/siteHead.jsp" />
 <BODY>

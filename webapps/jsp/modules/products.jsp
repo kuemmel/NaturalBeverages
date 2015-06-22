@@ -3,7 +3,7 @@
 <%@ page buffer="none" %>
 <%
   request.setAttribute("pageTitle","Products");
-  request.setAttribute("scripts","utils.js");
+  request.setAttribute("scripts","utils.jsp");
 %>
 <jsp:include page="siteHead.jsp" />
 <BODY>
