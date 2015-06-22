@@ -9,7 +9,7 @@
 %>
 <!-- Dropdown Structure -->
 <ul id="siteNavigationDropdown" class="dropdown-content s3 m5 l5">
-  <li><a href="${pageContext.request.contextPath}/modules/products.jsp">Products</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/products.jsp" style="padding-left: 30px;padding-right: 30px">Products</a></li>
   <li><a href="${pageContext.request.contextPath}/index.jsp">Index</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/search.jsp">Search</a></li>
   <li class="divider"></li>
