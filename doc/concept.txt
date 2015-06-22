@@ -30,7 +30,3 @@ Design:
 	Colors:
 		- green/brown "nature"
 		- light colors "freedom, air" (pastel?)
-		- https://scotch.io/tutorials/make-material-design-websites-with-the-materialize-css-framework
-
-
-select beverages.name, firm, imagePath, amountLeft, priceperunit, categories.name, crates.amountPerCrate, crates.refund, containers.amountPerUnit, containers.refund from Beverages left join categories on (categories.name=beverages.categoryName) left join containers on (containers.name=beverages.containerName) left join crates on (crates.name = containers.crateName);

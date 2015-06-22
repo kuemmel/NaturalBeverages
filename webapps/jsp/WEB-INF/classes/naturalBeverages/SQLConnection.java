@@ -25,6 +25,11 @@ public class SQLConnection
 		this.buildConnectionToDB();
 	}
 
+	public SQLConnection()
+	{
+		this.buildConnectionToDB();
+	}
+
 	public void loadDriver() throws ClassNotFoundException
 	{
 		Class.forName("com.mysql.jdbc.Driver");
@@ -136,6 +141,17 @@ public class SQLConnection
 		return statement.executeQuery(query);
 	}
 
+	public ResultSet getProductByNameAndFirm(String name, String firm) throws SQLException
+	{
+		String query = "select beverages.name, firm, imagePath, amountLeft, priceperunit, categories.name 'category',"
+		+"crates.amountPerCrate, crates.refund, containers.amountPerUnit,containers.refund from beverages "
+		+"left join categories on (categories.name = beverages.categoryName) "
+		+"left join containers on (containers.name = beverages.containerName) "
+		+"left join crates on (crates.name = containers.crateName) where beverages.name = \""+name+"\" and beverages.firm = \""+firm+"\";";
+
+		return statement.executeQuery(query);
+	}
+
 	/**
 	 * Encrypt passwords in a weak md5 fashion.
 	 * 
@@ -175,5 +191,9 @@ public class SQLConnection
 	public int sqlUpdate(String query) throws SQLException
 	{
 		return statement.executeUpdate(query);
+	}
+	public int sqlUpdateReturnGenerated(String query) throws SQLException
+	{
+		return statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
 	}
 }

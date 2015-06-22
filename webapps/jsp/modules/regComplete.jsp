@@ -2,11 +2,11 @@
 <%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
 <%
 	request.setAttribute("pageTitle","Registration complete");
-	request.setAttribute("scripts","utils.js");
+	request.setAttribute("scripts","utils.js register.jsp");
 %>
 <!--head-->
 <jsp:include page="siteHead.jsp" />
-<BODY class="blue-grey darken-4">
+<BODY class="blue-grey darken-4" onload="deleteFormInput(&quot;hash&quot;)">
 <!-- navbar -->
 <jsp:include page="nav.jsp" />
 <div class="container  blue-grey lighten-5">

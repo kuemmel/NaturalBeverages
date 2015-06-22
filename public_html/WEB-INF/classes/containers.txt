@@ -1,9 +1,0 @@
-0,5 Glasflasche;0.5;0.08;0,5 Bierkiste
-0,7 Glasflasche;0.7;0.0;0,7 Karton
-1 Glasflasche;1;0.15;1 Glaskiste
-0,33 Plastikflasche;0.33;0.25;0,33 SixPack
-0,5 Plastikflasche;0.5;0.25;0,5 SixPack
-0,7 Plastikflasche;0.7;0.25;0,7 SixPack
-1 Plastikflasche;1;0.25;1 SixPack
-0,33 Bierflasche;0.33;0.08;0,33 Bierkiste
-0,33 Knolle;0.33;0.08;0,33 Knollenkiste

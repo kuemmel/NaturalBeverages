@@ -1,6 +1,7 @@
-Bier
-Wein
-Met
-Saft
+Beer
+Wine
+Mead
+Juice
 Whiskey
-Tee
+Tea
+Coffee

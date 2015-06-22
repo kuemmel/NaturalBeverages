@@ -8,14 +8,14 @@
   }
 %>
 <!-- Dropdown Structure -->
-<ul id="siteNavigationDropdown" class="dropdown-content s3 m5 l5">
-  <li><a href="${pageContext.request.contextPath}/modules/products.jsp" style="padding-left: 30px;padding-right: 30px">Products</a></li>
-  <li><a href="${pageContext.request.contextPath}/index.jsp">Index</a></li>
-  <li><a href="${pageContext.request.contextPath}/modules/search.jsp">Search</a></li>
+<ul id="siteNavigationDropdown" class="dropdown-content s5 m5 l5">
+  <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/products.jsp">Products</a></li>
   <li class="divider"></li>
   <li><a href="${pageContext.request.contextPath}/modules/register.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
-  <li><a class="modal-trigger <%if(!loggedIn)out.println("hide");%>" href="#modal1">Cart</a></li>
-  <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp <%if(!loggedIn)out.println("hide");%>">UserSettings</a></li>
+  <li><a class="modal-trigger <%if(!loggedIn)out.println("hide");%>" href="#modal1" onclick="setCartDiv()">Cart</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp" class="<%if(!loggedIn)out.println("hide");%>">Settings</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/logout.jsp" class="<%if(!loggedIn)out.println("hide");%>">Log out</a></li>
 </ul>
 <!--navbar for every site -->
 <nav class="nav_over z-depth-3">
@@ -46,9 +46,9 @@
             <i class="mdi-action-list right"></i>
           </a>
         </li>
-		  </ul>
+      </ul>
+      </div>
     </div>
-	</div>
-</div>
+  </div>
 </nav>
 <img class="responsive-img z-depth-2" src="${pageContext.request.contextPath}/images/bannerFlatFlat.png" />
