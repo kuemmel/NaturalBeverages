@@ -19,50 +19,51 @@
       <div class="row">
         <div class="input-field col s6">
           <input id="name" name="name" type="text" class="validate">
-          <label for="name">First Name</label>
+          <label class="active" for="name">First Name</label>
         </div>
         <div class="input-field col s6">
           <input id="surname" name="surname" type="text" class="validate">
-          <label for="surname">Last Name</label>
+          <label class="active" for="surname">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
           <input id="password" name="password" type="password" class="validate">
-          <label for="password">Password</label>
+          <label class="active" for="password">Password</label>
         </div>
         <div class="input-field col s6">
           <input id="repeatPassword" name="repeatPassword" type="password" class="validate">
-          <label for="repeatPassword">Repeat password</label>
+          <label class="active" for="repeatPassword">Repeat password</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="email" name="email" type="email" class="validate">
-          <label for="email">Email</label>
+          <input id="email" name="email" type="email" data-error="That's not an email" class="validate">
+          <label class="active" for="email">Email</label>
         </div>
         <div class="input-field col s6">
           <input id="nick" name="nick" type="text" class="validate">
-          <label for="nick">Nick</label>
+          <label class="active" for="nick">Nick</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
           <input id="dateOfBirth" name="dateOfBirth" type="date" class="datepicker">
+           <label class="active" for="dateOfBirth">Address</label>
         </div>
         <div class="input-field col s6">
           <input id="floor" name="floor" type="text" class="validate">
-          <label for="floor">Floor</label>
+          <label class="active" for="floor">Floor</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
           <input id="address" name="address" type="text" class="validate">
-          <label for="address">Address</label>
+          <label class="active" for="address">Address</label>
         </div>
         <div class="input-field col s6">
           <input id="zipCode" name="zipCode" type="text" class="validate">
-          <label for="zipCode">Zipcode</label>
+          <label class="active" for="zipCode">Zipcode</label>
         </div>
       </div>
       <div class="row">

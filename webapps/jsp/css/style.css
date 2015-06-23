@@ -34,7 +34,7 @@ main
 
 .nav_over
 {
-  background-color: #594E42;
+  background-color: #3e2723;/*#594E42;*/
 }
 
 .mainColor
@@ -44,7 +44,7 @@ main
 
 footer.page-footer
 {
-  background-color: #594E42;
+  background-color: #3e2723;/*#594E42;*/
 }
 
 /* overwrite tab properties, change colors, height*/

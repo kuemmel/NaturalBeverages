@@ -20,6 +20,9 @@
  	{
  		ResultSet resultSet = sqlConnection.getOrdersFromUser(userId);
 
+    if( !resultSet.last()) out.println("<h5>You have not ordered anything! :)</h5>");
+
+    resultSet.beforeFirst();
  		while(resultSet.next())
  		{
  		  String orderId = resultSet.getString("id");

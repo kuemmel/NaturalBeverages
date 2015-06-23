@@ -13,7 +13,8 @@
   <li><a href="${pageContext.request.contextPath}/modules/products.jsp">Products</a></li>
   <li class="divider"></li>
   <li><a href="${pageContext.request.contextPath}/modules/register_new.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
-  <li><a class="modal-trigger <%if(!loggedIn)out.println("hide");%>" href="#modal1" onclick="setCartDiv()">Cart</a></li>
+  <li><a href="#modalLogIn" class="modal-trigger <%if(loggedIn)out.println("hide");%>">Log In</a></li>
+  <li><a href="#modal1" class="modal-trigger <%if(!loggedIn)out.println("hide");%>" onclick="setCartDiv()">Cart</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/orders.jsp" class="<%if(!loggedIn)out.println("hide");%>">My Orders</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp" class="<%if(!loggedIn)out.println("hide");%>">Settings</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/logout.jsp" class="<%if(!loggedIn)out.println("hide");%>">Log out</a></li>
@@ -23,8 +24,8 @@
 <nav class="nav_over z-depth-3">
 	<div class="nav-wrapper">
     <div class="row">
-  		<div class="col">
-        <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo">
+  		<div class="col"
+>        <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo">
           Natural Beverages<i class="mdi-content-send right"> <%=request.getAttribute("pageTitle")%></i>
         </a>
       </div><div clas="divider" />
@@ -32,13 +33,13 @@
 		  <ul class="right hide-on-med-and-down">
         <form class="col <%if(loggedIn)out.println("hide");%>" id="loginForm" method="post" name="loginForm" action="${pageContext.request.contextPath}/modules/login.jsp">
           <li>
-            <div class="input-field col">
+            <div class="input-field col s10">
               <input name="email" placeholder="email" type="email" class="validate">
             </div>
           </li>      
           <li>
-            <div class="input-field col">
-              <input name="password" placeholder="password" type="password" class="validate\">
+            <div class="input-field col s10">
+              <input name="password" placeholder="password" type="password" class="validate">
             </div>
           </li>
         </form>
@@ -53,4 +54,15 @@
     </div>
   </div>
 </nav>
+<div id="modalLogIn" class="modal">
+  <div class="modal-content">
+ <form class="" id="loginModalForm" method="post" name="loginModalForm" action="${pageContext.request.contextPath}/modules/login.jsp">
+  <input name="email" placeholder="email" type="email" class="validate">
+  <input name="password" placeholder="password" type="password" class="validate">
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Abbort</a>    
+    <a class="waves-effect waves-green btn-flat" type="submit" name="action" >Log In</a>
+  </div>
+</div>
 <img class="responsive-img z-depth-2" src="${pageContext.request.contextPath}/images/bannerFlatFlat.png" />
