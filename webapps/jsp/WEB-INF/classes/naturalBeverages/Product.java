@@ -99,6 +99,15 @@ public class Product
 		sqlConnection.sqlUpdate(query);
 	}
 
+	public void subtractAmountFromDB(SQLConnection sqlConnection) throws SQLException
+	{
+		if(amountLeft-amount < 0) throw new RuntimeException("amountleft < 0");
+	    String query = "update beverages set amountLeft ="+(amountLeft-amount)+" where beverages.name =\""+this.name
+	    	+"\" and beverages.firm = \""+this.firm+"\";";
+
+        sqlConnection.sqlUpdate(query);
+	}
+
 	@SuppressWarnings("unchecked") //json-simple does not support generics as of yet (it seems)
 	public JSONObject getJSON()
 	{
@@ -150,11 +159,20 @@ public class Product
 		return getPricePerAmount().add(getRefundPerAmount());
 	}
 
+	/**
+	 * Returns the refund. If there are enough bottle to be put into a crate, the refund for the crate is added.
+	 * 
+	 **/
 	public Money getRefundPerAmount()
 	{
 		Money refundPerAmount = refundPerUnit.multiply(this.amount);
-		Money crateRefund = refundPerCrate.multiply((int)Math.floor(this.amount/this.amountPerCrate));
-		return refundPerAmount.add(crateRefund);
+		if(this.amount > this.amountPerCrate)
+		{
+			Money crateRefund = refundPerCrate.multiply((int)Math.floor(this.amount/this.amountPerCrate));	
+			return refundPerAmount.add(crateRefund);	
+		}
+		
+		return refundPerAmount;
 	}
 
 	public Money getPricePerAmount()

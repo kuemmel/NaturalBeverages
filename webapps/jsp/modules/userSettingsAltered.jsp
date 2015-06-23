@@ -21,7 +21,7 @@
      **/
     String email       = request.getParameter("email");
     String nick        = request.getParameter("nick");
-    String oldPassword    = request.getParameter("oldPassword");
+    String oldPassword = request.getParameter("oldPassword");
     String newPassword = request.getParameter("newPassword");
     String name        = request.getParameter("name");
     String surname     = request.getParameter("surname");

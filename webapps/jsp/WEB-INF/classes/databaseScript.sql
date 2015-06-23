@@ -79,11 +79,12 @@ create table orders (
 	) engine = INNODB;
 
 create table boughtgoods (
-	  orderId mediumint
+	  id mediumint not null unique auto_increment
+	, orderId mediumint
 	, beverageName varchar(30)
 	, crate boolean
 	, amount int(4)
-	, primary key (orderid,beverageName)	
+	, primary key (id)	
 	, constraint foreign key (beverageName) references dz39.beverages(name) on update restrict on delete cascade
 	, constraint foreign key (orderId) references dz39.orders(id) on update restrict on delete cascade
 	) engine = INNODB;

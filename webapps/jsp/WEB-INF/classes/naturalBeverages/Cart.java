@@ -96,6 +96,7 @@ public class Cart implements Cloneable
 	{
 		
 		Set<?> keySet = jsonObject.keySet();
+		//if(true)throw new RuntimeException("test"+JSONObject);
 		Iterator<?> iterator = keySet.iterator();
 		
 
@@ -105,7 +106,7 @@ public class Cart implements Cloneable
 			JSONObject currentProduct = (JSONObject) jsonObject.get((Object)key);
 			String firm = (String)currentProduct.get((Object)"firm");
 			String name = (String)currentProduct.get((Object)"name");
-			int amount = Integer.parseInt((String)currentProduct.get((Object)"amount"));
+			int amount = (int) ((java.lang.Long)currentProduct.get((Object)"amount")).intValue();
 			try
 			{
 				ResultSet resultSet = sqlConnection.getProductByNameAndFirm(name,firm);
@@ -266,10 +267,23 @@ public class Cart implements Cloneable
         	{
         		product.insertIntoBoughtGoods(sqlConnection,orderId);
         	}
+        	//subtract bought goods from the database
+    		subtractBoughtGoods(sqlConnection);
     	} catch(SQLException e)
     	{
     		throw new RuntimeException("Problem setting up the order: "+e+" "+this.floor);
     	}
+	}
+
+	/**
+	 * When the order is complete, subtract the amount of bought goods from the database
+	 **/
+	private void subtractBoughtGoods(SQLConnection sqlConnection) throws SQLException
+	{
+		for(Product product : products)
+		{
+			product.subtractAmountFromDB(sqlConnection);
+		}
 	}
 
 	private int getFloorFromUserId(String userId)

@@ -5,7 +5,7 @@
 	request.setAttribute("scripts","utils.jsp");
 %>
 <jsp:include page="siteHead.jsp" />
-<BODY>
+<BODY onload="redirect(2000,&quot;../index.jsp&quot;)">
 <jsp:include page="nav.jsp" />
 <div class="container">
 	<a href="${pageContext.request.contextPath}/index.jsp">Home</a>

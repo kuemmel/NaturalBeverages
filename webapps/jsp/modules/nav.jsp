@@ -14,8 +14,10 @@
   <li class="divider"></li>
   <li><a href="${pageContext.request.contextPath}/modules/register_new.jsp" class="<%if(loggedIn)out.println("hide");%>">Sign Up</a></li>
   <li><a class="modal-trigger <%if(!loggedIn)out.println("hide");%>" href="#modal1" onclick="setCartDiv()">Cart</a></li>
+  <li><a href="${pageContext.request.contextPath}/modules/orders.jsp" class="<%if(!loggedIn)out.println("hide");%>">My Orders</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/userSettings.jsp" class="<%if(!loggedIn)out.println("hide");%>">Settings</a></li>
   <li><a href="${pageContext.request.contextPath}/modules/logout.jsp" class="<%if(!loggedIn)out.println("hide");%>">Log out</a></li>
+
 </ul>
 <!--navbar for every site -->
 <nav class="nav_over z-depth-3">

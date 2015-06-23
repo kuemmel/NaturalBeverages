@@ -156,14 +156,14 @@ function setProductDetails(data)
   productHash = {};
   productHash["firm"] = json["firm"];
   productHash["name"] = json["name"];
-  productHash["amount"] =json["amount"];
-  productHash["pricePerUnit"] = json["pricePerUnit"];
-  productHash["refundPerUnit"] = json["refundPerUnit"];
-  productHash["refundPerCrate"] = json["refundPerCrate"];
-  productHash["amountPerUnit"] = json["amountPerUnit"];
-  productHash["amountPerCrate"] = json["amountPerCrate"];
-  productHash["price"] = json["price"];
-  productHash["refund"] = json["refund"];
+  productHash["amount"] = parseInt(json["amount"]);
+  productHash["pricePerUnit"] = parseFloat(json["pricePerUnit"]);
+  productHash["refundPerUnit"] = parseFloat(json["refundPerUnit"]);
+  productHash["refundPerCrate"] = parseFloat(json["refundPerCrate"]);
+  productHash["amountPerUnit"] = parseFloat(json["amountPerUnit"]);
+  productHash["amountPerCrate"] = parseInt(json["amountPerCrate"]);
+  productHash["price"] = parseFloat(json["price"]);
+  productHash["refund"] = parseFloat(json["refund"]);
   console.log("productHash: "+productHash);
   cart["firm:"+json["firm"]+":"+json["name"]] = productHash;
   setObject("cart",cart);
@@ -187,7 +187,7 @@ function submitCart()
 
   document.forms["cartForm"]["cart"].value = cart;
   document.forms["cartForm"].submit();
-
+  clearCart();
 }
 
  /**
@@ -220,37 +220,48 @@ function setCartDiv()
   var totalPrice = 0;
   var totalRefund = 0;
   var totalService = 0;
-  var amountInL = 1;
+  var amountInLiter = 0;
   var floor = <%=session.getAttribute("floor")%>;
   var result = "<table id=\"tableCart\"class=\"striped hoverable\">\n  <thead>\n    <tr>\n";
   result += "      <th data-field=\"name\">Product</th>\n";
   result += "      <th data-field=\"firm\">Firm</th>\n";
-  result += "      <th data-field=\"name\">refund</th>\n";
-  result += "      <th data-field=\"price\">Price</th>\n";
-  result += "      <th data-field=\"price\">Amount</th>\n";
+  result += "      <th data-field=\"refundPerBottle\">refund per bottle</th>\n";
+  result += "      <th data-field=\"pricePerUnit\">Price per bottle</th>\n";
+  result += "      <th data-field=\"amount\">Amount</th>\n";
+  result += "      <th data-field=\"refund\">Refund</th>\n";
   result += "      <th data-field=\"subtotal\">Subtotal</th>\n";
   result += "    </tr>\n";
   result += "  </thead>\n";
   result += "  <tbody>\n";
+
   for(var key in cart)
   {
-    product = cart[key]
+    var product = cart[key];
     var id = ("cartTable:"+product["firm"]+":"+product["name"]);
-    result += "<tr id=\""+id+"\"><td>"+product["name"]+"</td><td>"+product["firm"]+"</td><td>"+product["refundPerUnit"]
-    +"</td><td>"+product["pricePerUnit"]+"</td><td>"+product["amount"]+"</td><td>"+(parseFloat(product["price"])+parseFloat(product["refund"]))+"\u20AC</td>"
-    +"<td><a href=\"#!\" onclick=\"clearProduct(&quot;"+id+"&quot;)\"><i class=\"mdi-content-clear red-text\"></a></td></tr>\n";
+    var amountOfCrates = Math.floor(product["amount"]/product["amountPerCrate"]);
+    var singleBottleRefund = product["refundPerUnit"];
+    var singleBottlePrice = product["pricePerUnit"];
+    var refund = product["refund"];
+    var price = product["price"];
 
-    totalPrice += parseFloat(product["price"]);
-    totalRefund += parseFloat(product["refund"]);
-    amountInL += parseFloat(product["amountPerUnit"]);
+    result += "<tr id=+\""+id+"\"></td><td>"+product["name"]+"</td><td>"+product["firm"]+"</td>";
+    result += "<td>"+format(singleBottleRefund)+"</td><td>"+format(singleBottlePrice)+"</td>";
+    result += "<td>"+product["amount"]+"</td><td>"+format(refund)+"("+amountOfCrates+" crates)</td>";
+    result += "<td>"+format(price+refund)+"</td></tr>";
+
+    totalPrice += product["price"];
+    totalRefund += product["refund"];
+    amountInLiter += product["amountPerUnit"];
+
   }
-  totalService = getService(amountInL,floor,0.05);
+  totalService = getService(amountInLiter,floor,0.05);
   result += "  </tbody>\n </table>";
-  result += "<p> Total Price: "+Math.floor(totalPrice*100)/100+"\u20AC Total Refund: "
-  + Math.floor(totalRefund*100)/100+"\u20AC Total Service: "+totalService+"\u20AC(floor: "+floor+", Litre: "+amountInL+")</p>";
-  result += "<p> All in All: "+Math.floor((totalPrice+totalService)*100)/100+"\u20AC </p>";
+
+  result += "<p><h5> total refund: "+format(totalRefund)+" total service: "+format(totalService)+"("+floor+"floors)+ 5\u20AC shipping. </h5></p>"
+  result += "<p><h4> All in All: "+format(totalPrice+totalRefund+totalService+5)+"</h4></p>";
   var cartDiv = document.getElementById("cartDiv");
   cartDiv.innerHTML = result;
+
 } 
 
 /**
@@ -282,5 +293,16 @@ function clearProduct(id)
  **/
 function getService(amount,floor,service_cost)
 {
-  return Math.floor((amount*floor*service_cost)*100)/100;
+  return Math.floor(1+(amount*floor*service_cost)*100)/100;
+}
+
+function format(value)
+{
+  value = (Math.floor(value*100)/100).toFixed(2);
+  return value+"\u20AC";
+}
+
+function redirect(delay, url)
+{
+  setTimeout(function() {window.location.replace(url);},delay);
 }

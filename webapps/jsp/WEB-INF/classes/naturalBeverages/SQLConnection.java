@@ -152,6 +152,22 @@ public class SQLConnection
 		return statement.executeQuery(query);
 	}
 
+	public ResultSet getOrdersFromUser(String userId) throws SQLException
+	{
+		String query = "select * from orders where userId =\""+userId"\"";
+
+		/*String query = "select orders.id,orders.userId,orders.dateOfOrder,boughtgoods.orderId,boughtgoods.beverageName,boughtgoods.amount"
+		+"from orders left join boughtGoods on (orders.id=boughtgoods.orderId) where userId = \""+userId+"\";";*/
+
+		return statement.executeQuery(query);
+	}
+
+	public ResultSet getBoughtGoodsFromOrderId(String orderId) throws SQLException
+	{
+		String query = "select * from boughtgoods where orderId = \""+orderId"\"";
+		return statement.executeQuery(query);
+	}
+
 	/**
 	 * Encrypt passwords in a weak md5 fashion.
 	 * 
