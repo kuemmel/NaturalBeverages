@@ -1,11 +1,11 @@
 ##
-# This is a small project for a lectore on databases.
+# This is a small project for a lecture on databases.
 #
 # Text partially in German
 ##
  <br /> <br />
 About: <br />
-	- A fictitious WebShop and delivery service for "natural" beverages: Beer, Juice, Tea, Coffee, Whine, Mead <br />
+	- A fictitious WebShop and delivery service for "natural" beverages: Beer, Juice, Tea, Coffee, Wine, Mead <br />
 	- Focus on bio and 'local' specials <br />
 
 (crude) UserStories:  <br />
