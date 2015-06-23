@@ -53,7 +53,7 @@
           } else
           {
             buttonAction = "submitProductForm(&quot;form:"+product.getFirm()+":"+product.getName()+"&quot;)";        
-            buttonClass = "waves-effect waves-light btn green darken-1";
+            buttonClass = "waves-effect waves-light btn green darken-1 teal-text text-lighten-5";
           }
           out.println("    <!-----------------------------product: "+product.toString()+"-->");
           /*
@@ -75,7 +75,7 @@
           </div>
           <div class="card-content col" >
             <table>
-              <tr><td><%=product.isInStock()%></td></tr>
+              <tr><td><b><%=product.isInStock()%></b></td></tr>
               <tr><td><%=product.getFirm()%></td></tr>
               <tr><td>Price:</td><td><%=product.getPricePerUnit().toString()%></td></tr>
               <tr><td>Refund:</td><td><%=product.getRefundPerUnit().toString()%></td></tr>

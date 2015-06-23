@@ -69,7 +69,7 @@
 	  		hash["floor"] = "";
 			valid = false;
 	  	}
-	  	if(!hash["email"].match(/^([a-zA-z\-0-9]+@[a-zA-z\-\+]+\.[a-z]+)$/))
+	  	if(!hash["email"].match(/^([a-zA-z\-\.0-9]+@[a-zA-z\-\+]+\.[a-z]+)$/))
 	  	{
 	  		message += "no valid email address.\n";
 	  		hash["email"] = "";

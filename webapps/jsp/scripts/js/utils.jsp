@@ -84,7 +84,12 @@ function revertAdd(formName)
 
 function setObject(key, value)
 {
-    document.cookie = key+"="+JSON.stringify(value);
+  var currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() + 12);
+  //document.cookie = key +"=" + JSON.stringify(value) + ";expires=" + currentDate + ";domain="+window.location.host+";path=/";
+
+
+  document.cookie = key+"="+JSON.stringify(value);
 }
 
 function getObject(key)

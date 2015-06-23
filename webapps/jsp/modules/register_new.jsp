@@ -2,7 +2,7 @@
 <%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*"%>
 <%
 	request.setAttribute("pageTitle","Register");
-	request.setAttribute("scripts","utils.js register.jsp");
+	request.setAttribute("scripts","utils.jsp register.jsp");
 %>
 <!--
  PRAXI Problems: register.jsp is chached for weeks now on the production server. action="modules/registration.jsp"
