@@ -17,13 +17,18 @@ public class Cart implements Cloneable
 	private int floor;
 	public ArrayList<Product> products;
 
+	/**
+	 * Initialize empty cart
+	 **/
 	public Cart(String userId)
 	{
 		this.userId = userId;
 		this.products = new ArrayList<Product>();
 		this.floor = getFloorFromUserId(userId);
 	}
-
+	/**
+	 * A new cart from a json Object(sent from javascript)
+	 **/
 	public Cart(String userId, JSONObject jsonObject)
 	{
 		this.userId = userId;
@@ -33,6 +38,18 @@ public class Cart implements Cloneable
 		getProductsFromJSON(jsonObject,sqlConnection);
 	}
 
+	/**
+	 * A new Cart with products from the database
+	 **/
+	public Cart(String userId, ResultSet resultSet)
+	{
+		this.userId = userId;
+		this.products = new ArrayList<Product>();
+		this.floor = getFloorFromUserId(userId);
+		SQLConnection sqlConnection = new SQLConnection();
+		//getProductsFromDB(resultSet,sqlConnection);
+	}
+
 	public Cart clone()
 	{
 		Cart cart = new Cart(userId);
@@ -40,6 +57,23 @@ public class Cart implements Cloneable
 		cart.setProducts(this.products);
 		return cart;
 	}
+
+	/*
+	 * Gets a product name 
+	 *
+	private void getProductsFromDB(ResultSet resultSet, SQLConnection sqlConnection)
+	{
+		try
+		{
+			while(resultSet.next())
+			{
+
+			}
+		} catch(Exception e)
+		{
+			throw new RuntimeException("Something went wrong loading products from your order: "+e);
+		}
+	}*/
 
 	/**
 	 * Add a single product to the cart from a jsonString which looks like
@@ -120,7 +154,6 @@ public class Cart implements Cloneable
 				throw new RuntimeException("error loading products from db "+e);
 			}
 			//test.add((String)currentProduct.get((Object)"firm"));
-			
 		}
 
 	}
@@ -299,7 +332,7 @@ public class Cart implements Cloneable
 			floor = Integer.parseInt(userResultSet.getString("floor"));
 		} catch(SQLException e)
     	{
-    		throw new RuntimeException("Problem setting up the order: "+e+" "+floor);
+    		throw new RuntimeException("Problem finding your floor: "+e+" "+floor);
     	}
 		return floor;
 	}

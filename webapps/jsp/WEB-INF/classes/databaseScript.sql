@@ -84,7 +84,7 @@ create table boughtgoods (
 	, beverageName varchar(30)
 	, crate boolean
 	, amount int(4)
-	, primary key (id)	
+	, primary key (id)
 	, constraint foreign key (beverageName) references dz39.beverages(name) on update restrict on delete cascade
 	, constraint foreign key (orderId) references dz39.orders(id) on update restrict on delete cascade
 	) engine = INNODB;
@@ -93,7 +93,7 @@ create table boughtgoods (
 # insert static values
 ##
 
-load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/admin/categories.txt" into table categories fields terminated by ';' lines terminated by '\n';
-load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/admin/crates.txt" into table crates fields terminated by ';' lines terminated by '\n';
-load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/admin/containers.txt" into table containers fields terminated by ';' lines terminated by '\n';
-load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/admin/beverages.txt" into table beverages fields terminated by ';' lines terminated by '\n';
+load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/webapps/jsp/WEB-INF/classes/categories.txt" into table categories fields terminated by ';' lines terminated by '\n';
+load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/webapps/jsp/WEB-INF/classes/crates.txt" into table crates fields terminated by ';' lines terminated by '\n';
+load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/webapps/jsp/WEB-INF/classes/containers.txt" into table containers fields terminated by ';' lines terminated by '\n';
+load data infile "F:/Daten/Dokumente/Studium/MS - haw/rdb/webapps/jsp/WEB-INF/classes/beverages.txt" into table beverages fields terminated by ';' lines terminated by '\n';

@@ -40,9 +40,22 @@
 
         productContentResultSet.beforeFirst();
         while(productContentResultSet.next())
-        {
+        {        
+          boolean empty = false;
+          String buttonAction = "";
+          String buttonClass = "";
           Product product = new Product(productContentResultSet);
-          out.println("    <!-----------------------------product: "+product.getClass()+"-->");
+
+          if(product.getAmountLeft()<=0) //there are no units left
+          {
+            buttonAction = "Materialize.toast('No more "+product.getName()+" left! :( We are trying to get more!', 3000)";
+            buttonClass = "btn white-text grey darken-1";
+          } else
+          {
+            buttonAction = "submitProductForm(&quot;form:"+product.getFirm()+":"+product.getName()+"&quot;)";        
+            buttonClass = "waves-effect waves-light btn green darken-1";
+          }
+          out.println("    <!-----------------------------product: "+product.toString()+"-->");
           /*
             not easy to read, but easier on the buffer.
             refer to product.java::returnAsHtmlCard() for a more object oriented, but even less elegant solution,
@@ -74,9 +87,9 @@
         </div>
         <div class="row">
           <div class="card-action" >
-            <form action="" id="form:<%=product.getFirm()+":"+product.getName()%>" value="set" method="GET">
+            <form action="" id="form:<%=product.getFirm()+":"+product.getName()%>" class="" value="set" method="GET">
               <div class="col" style="width:30%;">
-                <a class="waves-effect waves-light btn green darken-1" type="submit" name="action" onclick="submitProductForm(&quot;form:<%=product.getFirm()+":"+product.getName()%>&quot;)">Add to cart</a>
+                <a class="<%=buttonClass%>" type="submit" name="action" onclick="<%=buttonAction%>">Add to cart</a>
                 </button>
               </div>
               <div class="col" style="width:70%;">

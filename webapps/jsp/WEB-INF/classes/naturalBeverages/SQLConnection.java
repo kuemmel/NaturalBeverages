@@ -154,20 +154,49 @@ public class SQLConnection
 
 	public ResultSet getOrdersFromUser(String userId) throws SQLException
 	{
-		String query = "select * from orders where userId =\""+userId"\"";
+		String query = "select * from orders where userId =\""+userId+"\"";
 
 		/*String query = "select orders.id,orders.userId,orders.dateOfOrder,boughtgoods.orderId,boughtgoods.beverageName,boughtgoods.amount"
 		+"from orders left join boughtGoods on (orders.id=boughtgoods.orderId) where userId = \""+userId+"\";";*/
 
 		return statement.executeQuery(query);
 	}
-
+	/**
+	 * Returns the information to build a Product 
+	 **/
 	public ResultSet getBoughtGoodsFromOrderId(String orderId) throws SQLException
 	{
-		String query = "select * from boughtgoods where orderId = \""+orderId"\"";
+		String query = "select boughtgoods.orderId, beverages.name,beverages.firm,boughtGoods.amount,beverages.amountLeft "
+		+",beverages.imagePath,beverages.pricePerUnit,containers.amountPerUnit,containers.refund,crates.amountPerCrate,crates.refund,"
+		+"beverages.categoryName 'category' from boughtgoods "
+		+"left join beverages on (boughtgoods.beverageName = beverages.name) "
+		+"left join containers on (beverages.containerName = containers.name) "
+		+"left join crates on (containers.crateName = crates.name) where boughtgoods.orderId=\""+orderId+"\";";
+
 		return statement.executeQuery(query);
 	}
 
+	public ResultSet sqlQuery(String query) throws SQLException
+	{
+        return statement.executeQuery(query);
+	}
+	public int sqlUpdate(String query) throws SQLException
+	{
+		return statement.executeUpdate(query);
+	}
+	public int sqlUpdateReturnGenerated(String query) throws SQLException
+	{
+		//return statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+		sqlUpdate(query);
+		ResultSet resultSet = statement.getGeneratedKeys();
+		if(resultSet.next())
+		{
+			return (int) resultSet.getLong(1);
+		} else
+		{
+			throw new RuntimeException("No generated keys while setting up the order.");
+		}
+	}
 	/**
 	 * Encrypt passwords in a weak md5 fashion.
 	 * 
@@ -200,16 +229,4 @@ public class SQLConnection
 		return stringBuffer.toString();
 	}
 
-	public ResultSet sqlQuery(String query) throws SQLException
-	{
-        return statement.executeQuery(query);
-	}
-	public int sqlUpdate(String query) throws SQLException
-	{
-		return statement.executeUpdate(query);
-	}
-	public int sqlUpdateReturnGenerated(String query) throws SQLException
-	{
-		return statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
-	}
 }

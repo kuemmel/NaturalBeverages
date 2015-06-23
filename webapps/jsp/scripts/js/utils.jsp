@@ -33,6 +33,9 @@ $(document).ready(function()
     Transition: 50,
     Interval: 6000
   });
+
+  $('select').material_select();
+
 });
 
 /**

@@ -1,4 +1,15 @@
-<%@page import="java.util.*,java.sql.*,java.io.*,naturalBeverages.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*,java.sql.*,java.text.*,java.io.*,naturalBeverages.*,org.json.simple.*"%>
+<%
+	request.setAttribute("pageTitle","Login");
+	request.setAttribute("scripts","utils.jsp");
+%>
+
+<html>
+<jsp:include page="siteHead.jsp" />
+<body onload="redirect(5000,&quot;../index.jsp&quot;)">
+<jsp:include page="nav.jsp" />
+<div class="container">
 <%
 	SQLConnection sqlConnection = new SQLConnection(response.getWriter());
 	String email = request.getParameter("email");
@@ -17,7 +28,7 @@
 			response.sendRedirect("userSettings.jsp");
 		} else
 		{
-	 		out.println("Invalid password <a href="+request.getContextPath()+"/index.jsp>try again</a>");
+	 		out.println("Invalid password <a href="+request.getContextPath()+"/index.jsp><h5>try again</h5></a>");
 		}
 
 	} catch (SQLException e)
@@ -26,4 +37,7 @@
 	}
 
 %>
-asdasdasd
+</div>
+<jsp:include page="footer.jsp" />
+</BODY>
+</HTML>

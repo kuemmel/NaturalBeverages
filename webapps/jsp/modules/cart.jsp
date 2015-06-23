@@ -21,7 +21,7 @@
 	String userId = (String) session.getAttribute("userID");
 	Cart cart = new Cart(userId,jsonObject);
 	cart.setOrder();
-	out.println("<h4>Order sent. The order is on its way to your home! Meanwhile you can check that on your user page!</h4>");
+	out.println("<h4>Order sent. The order is on its way to your home! Meanwhile you can check your orders on your user page!</h4>");
 
 	/*Set<Object> keySet = jsonObject.keySet();
 	Iterator<Object> iterator = keySet.iterator();

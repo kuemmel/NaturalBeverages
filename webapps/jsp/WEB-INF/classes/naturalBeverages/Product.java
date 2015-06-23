@@ -129,12 +129,13 @@ public class Product
 
 	public String isInStock()
 	{
-		if(amountLeft <= amountPerCrate)
-		{
-			return "only "+amountLeft+" left!";
-		} else if(amountLeft == 0)
+		if(amountLeft == 0)
 		{
 			return "not available.";
+			
+		} else if(amountLeft <= amountPerCrate)
+		{
+			return "only "+amountLeft+" left!";
 		} else
 		{
 			return "in Stock!";
@@ -229,5 +230,14 @@ public class Product
 	public String getCategoryName()
 	{
 		return categoryName;
+	}
+
+	public int getBoughtAmount()
+	{
+		if(amount == 0)
+		{
+			throw new RuntimeException("Product has not been bought // amount = 0!");
+		}
+		return this.amount;
 	}
 }
