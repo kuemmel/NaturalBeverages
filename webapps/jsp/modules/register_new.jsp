@@ -15,7 +15,7 @@
 <jsp:include page="nav.jsp" />
 <div class="container  blue-grey lighten-5">
 	 <div class="row">
-    <form class="col s12" id="form" method="post" name="form" action="${pageContext.request.contextPath}/modules/registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
+    <form id="registerForm" class="col s12"  method="post" name="registerForm" action="${pageContext.request.contextPath}/modules/registration.jsp" onsubmit="return(validate());"> <!-- (validate(this))-->
       <div class="row">
         <div class="input-field col s6">
           <input id="name" name="name" type="text" class="validate">
@@ -49,7 +49,7 @@
       <div class="row">
         <div class="input-field col s6">
           <input id="dateOfBirth" name="dateOfBirth" type="date" class="datepicker">
-           <label class="active" for="dateOfBirth">Address</label>
+           <label class="active" for="dateOfBirth">Date Of Birth</label>
         </div>
         <div class="input-field col s6">
           <input id="floor" name="floor" type="text" class="validate">
@@ -68,8 +68,9 @@
       </div>
       <div class="row">
       	<!--<input class="btn waves-effect waves-light" type="submit" name="login" value=""/>--> 
-      	<button class="btn waves-effect waves-light" type="submit" name="action" onsubmit="return(validate());">Submit
-   		  <i class="mdi-content-send right"></i>
+      	<!--<button class="btn waves-effect waves-light" onclick="submit(this);">Submit</a>-->
+        <button class="btn waves-effect waves-light" type="submit" name="action" onsubmit="return(validate());">Submit
+   		   <i class="mdi-content-send right"></i>
         </button>
   	  </div>
       </div>

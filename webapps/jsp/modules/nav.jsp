@@ -59,10 +59,12 @@
  <form class="" id="loginModalForm" method="post" name="loginModalForm" action="${pageContext.request.contextPath}/modules/login.jsp">
   <input name="email" placeholder="email" type="email" class="validate">
   <input name="password" placeholder="password" type="password" class="validate">
+
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Abbort</a>    
-    <a class="waves-effect waves-green btn-flat" type="submit" name="action" >Log In</a>
+    <a class="waves-effect waves-green btn-flat" form="loginModalForm" type="submit" name="action" >Log In</a>
+    </form>
   </div>
 </div>
 <img class="responsive-img z-depth-2" src="${pageContext.request.contextPath}/images/bannerFlatFlat.png" />

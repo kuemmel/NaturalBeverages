@@ -1,12 +1,11 @@
 <%@page contentType="text/javascript" %>
-
 	/**
 	 * validate each input, such that it's not empty or wrong in case of password. zipcode, email,..
 	 **/
 	function validate()
 	{
 		var valid = true;
-		var form = document.getElementById("form");
+		var form = document.getElementById("registerForm");
 		var message = "";
 		var hash = {};
 		hash["email"] 			= form["email"].value;
@@ -104,7 +103,7 @@
 		hash = JSON.parse(hash);
 		if(hash != null)
 		{
-			var form = document.forms["form"];
+			var form = document.forms["registerForm"];
 			if(hash["email"]) form["email"].value = hash["email"];
 			if(hash["nick"]) form["nick"].value = hash["nick"];
 			if(hash["name"]) form["name"].value = hash["name"];

@@ -43,7 +43,7 @@
     } catch(SQLException e)
     {
         session.setAttribute("sqlErrorCode",String.valueOf(e.getErrorCode()));
-        response.sendRedirect("../register_new.jsp");
+        response.sendRedirect(request.getContextPath()+"/modules/register_new.jsp");
     }
 
 
